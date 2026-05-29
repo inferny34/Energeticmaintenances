@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ─── */
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-ems-dark font-body text-ems-text antialiased overflow-x-hidden;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+}
+
+/* ─── Reusable component classes ─── */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-ems-green text-ems-dark font-body
+           font-semibold text-sm px-6 py-[11px] rounded-md
+           hover:bg-ems-green-alt transition-colors duration-200 cursor-pointer
+           select-none no-underline;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 bg-transparent text-ems-green font-body
+           font-medium text-sm border border-ems-green px-6 py-[10px] rounded-md
+           hover:bg-ems-green/10 transition-colors duration-200 cursor-pointer
+           select-none no-underline;
+  }
+  .section-label {
+    @apply inline-block text-ems-green text-[0.8rem] uppercase tracking-[0.1em]
+           font-body font-medium mb-3;
+  }
+  .section-title {
+    @apply font-display font-bold text-ems-text uppercase leading-[1.1] mb-3;
+    font-size: clamp(1.9rem, 3vw, 2.4rem);
+  }
+  .section-sub {
+    @apply font-body text-ems-muted leading-relaxed;
+    font-size: 1rem;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-ems-surface border border-ems-border rounded-lg p-7 relative
+           transition-all duration-300 overflow-hidden;
+  }
+  .card:hover {
+    @apply border-ems-green -translate-y-1 shadow-[0_12px_40px_rgba(93,190,58,0.1)];
+  }
+
+  /* Form */
+  .form-input {
+    @apply w-full bg-ems-dark border border-ems-border rounded-md px-4 h-12
+           text-ems-text placeholder:text-ems-muted/50 text-[0.9rem]
+           focus:border-ems-green focus:outline-none transition-colors duration-200;
+  }
+  .form-label {
+    @apply block font-body font-medium text-[0.85rem] text-ems-muted mb-1.5;
+  }
+
+  /* Reveal animation */
+  .reveal {
+    @apply opacity-0 translate-y-7 transition-all duration-700 ease-out;
+  }
+  .reveal.visible {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+/* ─── Global keyframes (SVG-safe) ─── */
+@keyframes pulse-map {
+  0%, 100% { opacity: 1;   transform: scale(1);   }
+  50%       { opacity: 0.4; transform: scale(1.65); }
+}
+.pulse-map-dot {
+  animation: pulse-map 2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}

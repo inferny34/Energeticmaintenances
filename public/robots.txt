@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.energetic-maintenance-services.fr/sitemap.xml
