@@ -12,10 +12,11 @@ onMounted(()  => window.addEventListener('scroll', onScroll))
 onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
 const links = [
-  { label: 'Services',     href: '#services'     },
-  { label: 'Engagements',  href: '#engagements'  },
-  { label: 'Zone',         href: '#zone'         },
-  { label: 'Contact',      href: '#contact'      },
+  { label: 'Services',          href: '#services'     },
+  { label: 'À Propos',          href: '#about'        },
+  { label: 'Nos Engagements',   href: '#engagements'  },
+  { label: "Zone d'intervention", href: '#zone'       },
+  { label: 'Contact',           href: '#contact'      },
 ]
 </script>
 
@@ -42,7 +43,7 @@ const links = [
 
       <!-- LIENS DESKTOP -->
       <ul class="hidden md:flex items-center gap-8" role="list">
-        <li v-for="link in links" :key="link.href">
+        <li v-for="link in links" :key="link.label">
           <a :href="link.href"
              :aria-label="'Aller à la section ' + link.label"
              class="font-body text-sm text-ems-muted hover:text-ems-text transition-colors duration-200">
@@ -52,10 +53,18 @@ const links = [
       </ul>
 
       <!-- CTA + BURGER -->
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-6">
+        <!-- Nous contacter (Téléphone) -->
+        <a href="tel:+33400000000" class="hidden md:flex items-center gap-2 text-sm font-body text-ems-muted hover:text-ems-text transition-colors">
+          <svg class="text-ems-green w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Nous contacter
+        </a>
+
         <a href="#contact"
            aria-label="Demander un devis gratuit"
-           class="hidden md:inline-flex btn-primary text-sm py-2 px-5">
+           class="hidden md:inline-flex bg-ems-green text-ems-dark font-body font-bold text-xs px-5 py-2 rounded-full hover:bg-ems-green-alt transition-colors duration-200">
           Devis gratuit
         </a>
 
@@ -84,7 +93,7 @@ const links = [
     <div v-show="menuOpen" id="mobile-menu"
          class="md:hidden bg-ems-surface border-t border-ems-border px-6 py-4">
       <ul class="flex flex-col gap-4" role="list">
-        <li v-for="link in links" :key="link.href">
+        <li v-for="link in links" :key="link.label">
           <a :href="link.href" @click="closeMenu"
              :aria-label="'Aller à la section ' + link.label"
              class="block font-body text-ems-muted hover:text-ems-text transition-colors duration-200 py-1">
@@ -92,8 +101,16 @@ const links = [
           </a>
         </li>
         <li>
+          <a href="tel:+33400000000" class="flex items-center gap-2 font-body text-ems-muted hover:text-ems-text py-1">
+            <svg class="text-ems-green w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Nous contacter
+          </a>
+        </li>
+        <li>
           <a href="#contact" @click="closeMenu"
-             class="btn-primary inline-block text-sm text-center w-full mt-2">
+             class="btn-primary inline-block text-sm text-center w-full mt-2 rounded-full">
             Devis gratuit
           </a>
         </li>

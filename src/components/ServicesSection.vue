@@ -2,107 +2,97 @@
 const services = [
   {
     id: 'hta',
-    badge: { text: 'Cœur de métier', classes: 'bg-ems-green text-ems-dark' },
-    title: 'Poste Client Haute Tension HTA',
-    description: "Installation, maintenance de postes clients HTA et mise en conformité. Expertise issue de 20 ans d'intervention spécialisée chez Enedis en région Occitanie.",
-    items: ['Postes préfabriqués', 'Transformateurs HTA/BT', 'Cellules HTA', 'Conformité réseaux']
+    iconBg: 'bg-[#1b2a4a]',
+    iconColor: 'text-[#eff0f2]',
+    title: 'Poste client Haute Tension HTA',
+    description: "Installation, maintenance de postes clients HTA et mise en conformité. Expertise issue de 20 ans d'intervention spécialisée chez Enedis dans le Sud de France.",
+    tags: ['Poste préfabriqué', 'Transformateur HTA/BT', 'Cellule HTA', "Contrat d'entretien"],
+    svg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`
   },
   {
     id: 'irve',
-    badge: { text: 'Certifié P1/P2', classes: 'border border-ems-green text-ems-green' },
-    title: 'Installation & Maintenance Borne IRVE',
-    description: "Pose et maintenance de bornes de recharge IRVE pour professionnels et collectivités. Certification IRVE P1/P2 obligatoire — nous l'avons.",
-    items: ['Installation IRVE P1/P2', 'Bornes AC & DC', 'Maintenance préventive', 'Mise en service']
+    iconBg: 'bg-[#5dbe3a]',
+    iconColor: 'text-white',
+    title: 'Installation & maintenance borne IRVE',
+    description: "Pose et maintenance de bornes de recharge IRVE pour professionnels et collectivités. Certification IRVE EV/P2. (Intégration de bornes de 7kW à 150kW).",
+    tags: ['Intégration AC & DC', 'Borne AC & DC', 'Supervision opérateur', 'Mise en service'],
+    svg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>` // On peut utiliser une icône de plug
   },
   {
     id: 'maintenance',
-    badge: null,
-    title: 'Maintenance & Dépannage Électrique',
-    description: "Contrats de maintenance préventive et corrective sur installations HTA et IRVE. Intervention rapide sur toute l'Occitanie.",
-    items: ['Maintenance préventive', 'Dépannage urgent', 'Télésurveillance', "Rapport d'intervention"]
+    iconBg: 'bg-[#2e7d32]',
+    iconColor: 'text-white',
+    title: 'Maintenance & dépannage électrique',
+    description: "Contrats de maintenance préventive et curative sur vos installations HTA et BT. Intervention rapide sur tout le Sud de France.",
+    tags: ['Maintenance préventive', 'Dépannage urgent', 'Télé-assistance', "Rapport d'intervention"],
+    svg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>`
   }
 ]
 </script>
 
 <template>
-  <section id="services" class="py-24 bg-ems-dark" aria-labelledby="services-title">
-
+  <section id="services" class="py-24 bg-white text-slate-900" aria-labelledby="services-title">
     <div class="max-w-6xl mx-auto px-6">
 
-      <!-- En-tête -->
-      <div class="text-center mb-14 flex flex-col items-center">
+      <!-- En-tête de section -->
+      <div class="text-center mb-16 flex flex-col items-center">
+        <!-- Badge -->
         <span class="inline-flex items-center justify-center bg-ems-green/10 border border-ems-green/20 rounded-full px-4 py-1 mb-4">
-          <span class="font-display font-bold text-xs uppercase tracking-wider text-ems-green">Ce que nous faisons</span>
+          <span class="font-display font-bold text-xs uppercase tracking-wider text-ems-green">Nos Services</span>
         </span>
-        <h2 id="services-title" class="section-title mb-4">Nos expertises</h2>
-        <p class="font-body text-ems-muted text-base max-w-xl mx-auto">
-          HTA, IRVE et maintenance électrique — des prestations complètes pour professionnels et collectivités.
+        
+        <h2 id="services-title" class="font-display font-extrabold text-slate-900 text-center uppercase tracking-tight mb-4 leading-none text-2xl sm:text-4xl">
+          Expertise <span class="text-ems-green">HTA & IRVE</span> dans le <span class="text-ems-green">Sud de France</span>
+        </h2>
+        
+        <p class="font-body text-slate-600 text-base max-w-2xl mx-auto leading-relaxed">
+          Des prestations spécialisées pour les professionnels et collectivités, issues de <strong class="text-slate-900">20 ans d'expérience terrain Enedis</strong>.
         </p>
       </div>
 
-      <!-- Grille de cartes -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Cartes des services -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <article v-for="service in services" :key="service.id"
-                 class="card relative flex flex-col gap-4">
+                 class="bg-white border border-slate-100 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          
+          <div>
+            <!-- Conteneur Icône -->
+            <div :class="['w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm', service.iconBg, service.iconColor]"
+                 v-html="service.svg"
+                 aria-hidden="true">
+            </div>
 
-          <!-- Badge -->
-          <span v-if="service.badge"
-                :class="['absolute top-4 right-4 text-xs font-body font-medium px-3 py-1 rounded-full', service.badge.classes]">
-            {{ service.badge.text }}
-          </span>
+            <!-- Titre du service -->
+            <h3 class="font-display font-bold text-xl text-slate-900 uppercase mb-4 leading-snug group-hover:text-ems-green transition-colors duration-200">
+              {{ service.title }}
+            </h3>
 
-          <!-- Icône SVG selon le service -->
-          <div class="w-11 h-11" aria-hidden="true">
-            <!-- HTA : transformateur / éclairs -->
-            <svg v-if="service.id === 'hta'" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22 6L14 22h8l-4 16 14-18h-8l4-14z" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="22" cy="22" r="18" stroke="#5DBE3A" stroke-width="1.5" stroke-opacity="0.3"/>
-            </svg>
-            <!-- IRVE : prise de recharge -->
-            <svg v-else-if="service.id === 'irve'" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="12" y="8" width="20" height="28" rx="4" stroke="#5DBE3A" stroke-width="2"/>
-              <path d="M17 20h10M17 24h10" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="22" cy="30" r="2" fill="#5DBE3A"/>
-              <path d="M18 8V5M26 8V5" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <!-- Maintenance : clé à molette -->
-            <svg v-else viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M30 8a8 8 0 00-10.9 10.9L8 30a3 3 0 004.2 4.2l11.1-11.1A8 8 0 0030 8z" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="29" cy="10" r="2" fill="#5DBE3A"/>
-            </svg>
+            <!-- Description -->
+            <p class="font-body text-sm text-slate-600 leading-relaxed mb-6">
+              {{ service.description }}
+            </p>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span v-for="tag in service.tags" :key="tag"
+                    class="font-body text-xs bg-slate-50 text-slate-600 px-3 py-1 rounded-md border border-slate-100">
+                {{ tag }}
+              </span>
+            </div>
           </div>
 
-          <!-- Titre H3 -->
-          <h3 class="font-display font-bold text-ems-text text-xl uppercase">
-            {{ service.title }}
-          </h3>
-
-          <!-- Description -->
-          <p class="font-body text-sm text-ems-muted leading-relaxed flex-1">
-            {{ service.description }}
-          </p>
-
-          <!-- Liste -->
-          <ul class="flex flex-col gap-2" :aria-label="'Détails ' + service.title">
-            <li v-for="item in service.items" :key="item"
-                class="flex items-center gap-2 font-body text-sm text-ems-muted">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8l3.5 3.5L13 4.5" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              {{ item }}
-            </li>
-          </ul>
-
-          <!-- Lien -->
-          <a :href="'#contact'" :aria-label="'En savoir plus sur ' + service.title"
-             class="font-body text-sm text-ems-green hover:underline mt-auto pt-2 inline-flex items-center gap-1">
-            En savoir plus
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="#5DBE3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Lien Devis -->
+          <a href="#contact"
+             class="font-body font-bold text-sm text-slate-800 hover:text-ems-green transition-colors inline-flex items-center gap-1.5 mt-auto self-start border-b border-transparent hover:border-ems-green pb-0.5">
+            Demander un devis
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </a>
+
         </article>
       </div>
+
     </div>
   </section>
 </template>

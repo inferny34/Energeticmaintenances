@@ -2,8 +2,8 @@
 import NavBar             from './components/NavBar.vue'
 import HeroSection        from './components/HeroSection.vue'
 import ServicesSection    from './components/ServicesSection.vue'
-import EngagementsSection from './components/EngagementsSection.vue'
 import AboutSection       from './components/AboutSection.vue'
+import EngagementsSection from './components/EngagementsSection.vue'
 import ZoneSection        from './components/ZoneSection.vue'
 import ContactSection     from './components/ContactSection.vue'
 import FooterSection      from './components/FooterSection.vue'
@@ -14,8 +14,8 @@ import FooterSection      from './components/FooterSection.vue'
   <main>
     <HeroSection />
     <ServicesSection />
-    <EngagementsSection />
     <AboutSection />
+    <EngagementsSection />
     <ZoneSection />
     <ContactSection />
   </main>

@@ -1,107 +1,96 @@
 <script setup>
-// Pas de logique dynamique dans cette section, données inline dans le template
+// Pas de logique dynamique nécessaire
 </script>
 
 <template>
   <section id="hero"
-           class="relative min-h-screen flex items-center bg-ems-dark overflow-hidden pt-16">
+           class="relative min-h-screen flex flex-col justify-between bg-ems-dark overflow-hidden pt-24 pb-8">
 
-    <!-- Motif fond grille de points -->
-    <div class="absolute inset-0 opacity-30"
-         style="background-image: radial-gradient(#162035 1px, transparent 1px);
-                background-size: 28px 28px;"
-         aria-hidden="true">
+    <!-- Image de fond avec masques dégradés premium -->
+    <div class="absolute inset-0 z-0">
+      <img src="/hero_bg.png" alt="Lignes haute tension" class="w-full h-full object-cover object-center opacity-40" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ems-dark via-ems-dark/80 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-ems-dark/80 via-transparent to-ems-dark"></div>
     </div>
 
-    <!-- Lueur verte diffuse -->
-    <div class="absolute top-0 right-0 w-1/2 h-1/2 opacity-[0.06]"
-         style="background: radial-gradient(circle at 80% 20%, #5DBE3A 0%, transparent 65%);"
-         aria-hidden="true">
-    </div>
-
-    <div class="relative max-w-4xl mx-auto px-6 py-20 flex flex-col items-center text-center w-full z-10">
-
-      <!-- Badge -->
-      <div class="flex items-center gap-2 bg-ems-green/10 border border-ems-green/20 rounded-full px-4 py-1.5 mb-6">
-        <span class="w-2 h-2 rounded-full bg-ems-green inline-block animate-pulse" aria-hidden="true"></span>
-        <span class="font-display font-bold text-xs uppercase tracking-wider text-ems-green">Certifié Qualielec · 20 ans Enedis</span>
+    <!-- Conteneur centré pour le contenu principal -->
+    <div class="relative max-w-4xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center items-center text-center z-10 w-full">
+      
+      <!-- Badge de localisation -->
+      <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-8">
+        <span class="w-2.5 h-2.5 rounded-full bg-ems-green inline-block animate-pulse"></span>
+        <span class="font-body font-medium text-xs text-white/90">Zone d'intervention : Sud de France</span>
       </div>
 
-      <!-- H1 — UNIQUE SUR TOUTE LA PAGE -->
-      <h1 class="font-display font-extrabold uppercase leading-none text-ems-text mb-6"
-          style="font-size: clamp(2.4rem, 6vw, 4.8rem);">
-        Expert Électricité<br>
-        <span class="text-ems-green">Haute Tension HTA</span>
-      </h1>
+      <!-- Logo & Titre de l'entreprise -->
+      <div class="flex items-center gap-4 mb-6 text-left max-w-md sm:max-w-2xl">
+        <img src="/logo.png" alt="EMS Logo" class="w-16 h-16 sm:w-20 sm:h-20 object-contain" />
+        <h1 class="font-display font-extrabold leading-none text-white tracking-tight text-3xl sm:text-5xl uppercase">
+          ENERGETIC<br>
+          <span class="text-ems-green">MAINTENANCE<br>SERVICES</span>
+        </h1>
+      </div>
 
-      <!-- Sous-titre -->
-      <p class="font-body text-lg sm:text-xl text-ems-muted max-w-2xl leading-relaxed mb-8">
-        Installation et maintenance de postes HTA et bornes IRVE en Occitanie. 
-        <span class="text-ems-text font-medium block mt-2">Solutions exclusivement dédiées aux professionnels, industries et collectivités.</span>
+      <!-- Sous-titre descriptif -->
+      <p class="font-body text-base sm:text-lg text-white/80 max-w-2xl leading-relaxed mb-6">
+        Spécialiste <strong class="text-white">Haute Tension HTA</strong> et <strong class="text-ems-green">bornes de recharge IRVE</strong> dans le Sud de France. Poste client HTA, installation et maintenance — intervention rapide et devis gratuit.
       </p>
 
-      <!-- 3 avantages stylisés en ligne centrée -->
-      <ul class="flex flex-col sm:flex-row flex-wrap justify-center gap-x-8 gap-y-3 mb-10 text-left sm:text-center" aria-label="Nos spécialités">
-        <li class="flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="flex-shrink-0">
-            <path d="M3 8l3.5 3.5L13 4.5" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="font-body text-sm text-ems-muted">Poste client HTA</span>
-        </li>
-        <li class="flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="flex-shrink-0">
-            <path d="M3 8l3.5 3.5L13 4.5" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="font-body text-sm text-ems-muted">Bornes de recharge IRVE</span>
-        </li>
-        <li class="flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="flex-shrink-0">
-            <path d="M3 8l3.5 3.5L13 4.5" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="font-body text-sm text-ems-muted">Expertise Enedis</span>
-        </li>
-      </ul>
+      <!-- Badge Expérience Enedis -->
+      <div class="inline-flex items-center gap-2 bg-[#D17A22]/10 border border-[#D17A22]/20 rounded-lg px-4 py-2 mb-10 max-w-xl text-left">
+        <svg class="w-5 h-5 text-[#D17A22] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+        <span class="font-body text-xs sm:text-sm text-[#D17A22] font-semibold">20 ans d'expérience — ancienne agence d'intervention spécialisée Enedis</span>
+      </div>
 
-      <!-- Boutons -->
-      <div class="flex flex-wrap justify-center gap-4 mb-12">
-        <a href="#contact" class="btn-primary" aria-label="Demander un devis gratuit">
-          Demander un devis
+      <!-- Boutons d'action -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md sm:max-w-none">
+        <a href="#contact" class="btn-primary w-full sm:w-auto px-8 py-3.5 rounded-full font-bold text-base shadow-lg shadow-ems-green/20 hover:scale-[1.02] transition-transform">
+          Demander un devis gratuit &nbsp; →
         </a>
-        <a href="#services" class="btn-outline" aria-label="Voir nos services">
-          Nos services
+        <a href="tel:+33400000000" class="inline-flex items-center justify-center gap-2 bg-white/10 border border-white/20 text-white font-body font-semibold text-base px-8 py-3.5 rounded-full hover:bg-white/20 transition-all w-full sm:w-auto hover:scale-[1.02]">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Nous appeler
         </a>
       </div>
 
-      <!-- Réassurance -->
-      <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 pt-6 border-t border-ems-border/60 w-full max-w-2xl"
-           aria-label="Points forts">
-        <span class="flex items-center gap-2 text-xs text-ems-muted font-body">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </div>
+
+    <!-- Réassurance et Indicateur de défilement (bas de page) -->
+    <div class="relative z-10 w-full max-w-4xl mx-auto px-6">
+      
+      <!-- Liste des points forts -->
+      <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 py-6 border-t border-white/10 w-full max-w-2xl mx-auto mb-6">
+        <span class="flex items-center gap-2 text-xs sm:text-sm text-white/70 font-body">
+          <svg class="text-ems-green w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
           </svg>
-          Intervention rapide
+          Réponse rapide
         </span>
-        <span class="flex items-center gap-2 text-xs text-ems-muted font-body">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <span class="flex items-center gap-2 text-xs sm:text-sm text-white/70 font-body">
+          <svg class="text-ems-green w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
           </svg>
-          Devis gratuit
+          Certifié Qualifelec
         </span>
-        <span class="flex items-center gap-2 text-xs text-ems-muted font-body">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <span class="flex items-center gap-2 text-xs sm:text-sm text-white/70 font-body">
+          <svg class="text-ems-green w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
           </svg>
-          Qualielec certifié
-        </span>
-        <span class="flex items-center gap-2 text-xs text-ems-muted font-body">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z" stroke="#5DBE3A" stroke-width="2"/>
-            <circle cx="12" cy="10" r="3" stroke="#5DBE3A" stroke-width="2"/>
-          </svg>
-          Occitanie
+          20 ans d'expérience Enedis
         </span>
       </div>
 
+      <!-- Indicateur de défilement -->
+      <a href="#services" class="flex flex-col items-center gap-1.5 text-center text-white/40 hover:text-white/80 transition-colors py-2 group">
+        <span class="font-body text-[10px] tracking-widest uppercase">Découvrir</span>
+        <svg class="w-4 h-4 animate-bounce group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </a>
     </div>
   </section>
 </template>
