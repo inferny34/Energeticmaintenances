@@ -5,7 +5,7 @@ const services = [
     iconBg: 'bg-[#1b2a4a]',
     iconColor: 'text-[#eff0f2]',
     title: 'Poste client Haute Tension HTA',
-    description: "Installation, maintenance de postes clients HTA et mise en conformité. Expertise issue de 20 ans d'intervention spécialisée chez Enedis dans le Sud de France.",
+    description: "Maintenance de postes clients HTA et mise en conformité. Expertise issue de 20 ans d'intervention spécialisée chez Enedis dans le Sud de France.",
     tags: ['Poste préfabriqué', 'Transformateur HTA/BT', 'Cellule HTA', "Contrat d'entretien"],
     svg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`
   },
@@ -14,7 +14,7 @@ const services = [
     iconBg: 'bg-[#5dbe3a]',
     iconColor: 'text-white',
     title: 'Installation & maintenance borne IRVE',
-    description: "Pose et maintenance de bornes de recharge IRVE pour professionnels et collectivités. Certification IRVE EV/P2. (Intégration de bornes de 7kW à 150kW).",
+    description: "Pose et maintenance de bornes de recharge IRVE pour professionnels et collectivités. Certification IRVE NIV1/2/3. (Intégration de bornes de 7kW à 150kW).",
     tags: ['Intégration AC & DC', 'Borne AC & DC', 'Supervision opérateur', 'Mise en service'],
     svg: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>` // On peut utiliser une icône de plug
   },

@@ -1,7 +1,7 @@
 <script setup>
 const metrics = [
   { value: '20 ans', label: "D'expérience Enedis" },
-  { value: 'P1/P2',  label: 'Certifié IRVE' },
+  { value: 'NIV1/2/3',  label: 'Certifié IRVE' },
   { value: '48h',    label: "Délai d'intervention" },
   { value: 'Sud de France', label: "Zone d'intervention" }
 ]
@@ -9,7 +9,8 @@ const metrics = [
 const certifs = [
   'Qualifelec',
   'Habilitation HTA',
-  'Certifié IRVE P1/P2',
+  'Certifié IRVE NIV1/2/3',
+  'IRVE MA1/A2/A3',
   'Ex-Enedis 20 ans'
 ]
 </script>
@@ -42,7 +43,7 @@ const certifs = [
             de la région pour l'installation, la maintenance et la mise en conformité de vos postes clients HTA, assurant la continuité d'activité de vos infrastructures.
           </p>
           <p class="font-body text-sm text-[#8a96a8] leading-relaxed">
-            Certifié Qualielec et IRVE P1/P2, nous garantissons des prestations conformes aux normes
+            Certifié Qualielec et IRVE NIV1/2/3, nous garantissons des prestations conformes aux normes
             en vigueur pour le compte exclusif des professionnels, avec un professionnalisme rigoureux. 
             <span class="text-ems-green text-xs font-semibold block mt-2">EMS n'intervient pas auprès des particuliers.</span>
           </p>
