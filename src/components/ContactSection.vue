@@ -5,7 +5,8 @@ const form = reactive({
   company: '',
   email: '',
   phone: '',
-  message: ''
+  message: '',
+  _hp: ''        // Honeypot anti-spam : doit rester vide
 })
 const submitted  = ref(false)
 const submitting = ref(false)
@@ -16,9 +17,25 @@ async function handleSubmit() {
   submitting.value = true
   error.value = false
   try {
-    await new Promise(resolve => setTimeout(resolve, 900)) // Simulé
-    submitted.value = true
+    const response = await fetch('/contact.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        company: form.company,
+        email:   form.email,
+        phone:   form.phone,
+        message: form.message,
+        _hp:     form._hp      // Honeypot (vide chez les humains)
+      })
+    })
+    const data = await response.json()
+    if (data.success) {
+      submitted.value = true
+    } else {
+      error.value = true
+    }
   } catch {
+    // Erreur réseau ou parsing JSON
     error.value = true
   } finally {
     submitting.value = false
@@ -75,6 +92,7 @@ async function handleSubmit() {
               </label>
               <input id="company" v-model="form.company" type="text" required
                      placeholder="Votre entreprise ou nom"
+                     autocomplete="organization"
                      class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 h-12 text-slate-900 placeholder:text-slate-400 text-sm focus:border-ems-green focus:bg-white focus:outline-none transition-all duration-200"
                      aria-required="true" />
             </div>
@@ -86,6 +104,7 @@ async function handleSubmit() {
               </label>
               <input id="email" v-model="form.email" type="email" required
                      placeholder="contact@exemple.fr"
+                     autocomplete="email"
                      class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 h-12 text-slate-900 placeholder:text-slate-400 text-sm focus:border-ems-green focus:bg-white focus:outline-none transition-all duration-200"
                      aria-required="true" />
             </div>
@@ -97,6 +116,7 @@ async function handleSubmit() {
               </label>
               <input id="phone" v-model="form.phone" type="tel"
                      placeholder="+33 6 XX XX XX XX"
+                     autocomplete="tel"
                      class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 h-12 text-slate-900 placeholder:text-slate-400 text-sm focus:border-ems-green focus:bg-white focus:outline-none transition-all duration-200" />
             </div>
 
@@ -105,8 +125,15 @@ async function handleSubmit() {
               <label for="message" class="block font-body font-semibold text-xs text-slate-700 uppercase tracking-wider mb-2">
                 Votre message <span class="text-ems-green" aria-hidden="true">*</span>
               </label>
+              <!-- Honeypot anti-spam : invisible pour les humains, rempli par les bots -->
+              <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;opacity:0;pointer-events:none;tab-index:-1;">
+                <label for="_hp">Ne pas remplir</label>
+                <input id="_hp" v-model="form._hp" type="text" name="_hp" tabindex="-1" autocomplete="off" />
+              </div>
+
               <textarea id="message" v-model="form.message" rows="5" required
                         placeholder="Décrivez votre projet, type d'installation HTA, IRVE, localisation dans le Sud de France, délais..."
+                        autocomplete="off"
                         class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-slate-900 placeholder:text-slate-400 text-sm focus:border-ems-green focus:bg-white focus:outline-none transition-all duration-200 h-32 resize-y"
                         aria-required="true"></textarea>
             </div>
