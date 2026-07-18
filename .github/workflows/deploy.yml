@@ -19,8 +19,11 @@ jobs:
           node-version: 20
 
       - name: Installer les dépendances
-        run: npm install
-
+        run: npm ci
+      
+      - name: Donner les droits à Vite
+        run: chmod +x node_modules/.bin/vite
+      
       - name: Build Vue
         run: npm run build
 
