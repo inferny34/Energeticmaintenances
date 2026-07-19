@@ -76,7 +76,7 @@ async function handleSubmit() {
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
             </svg>
             <h3 class="font-display font-bold text-slate-900 text-2xl uppercase mb-2">Demande envoyée !</h3>
-            <p class="font-body text-slate-600 text-sm">Nous vous répondrons dans les plus brefs délais.</p>
+            <p class="font-body text-slate-600 text-sm">Votre demande a bien été prise en compte. Nous vous contacterons sous 48 heures ouvrées afin d’échanger sur votre projet.</p>
           </div>
 
           <!-- Formulaire -->

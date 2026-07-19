@@ -92,9 +92,9 @@
     <div class="max-w-6xl mx-auto px-6 border-t border-[#1e2f4a]/50 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[#8a96a8]/50">
       <p>© 2026 ENERGETIC MAINTENANCE SERVICES — Tous droits réservés — SIRET : 107 267 486 00010</p>
       <div class="flex items-center gap-4">
-        <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
+        <a href="#mentions" class="hover:text-white transition-colors">Mentions légales</a>
         <span>·</span>
-        <a href="#" class="hover:text-white transition-colors">Politique de confidentialité</a>
+        <a href="#privacy" class="hover:text-white transition-colors">Politique de confidentialité</a>
       </div>
     </div>
   </footer>
