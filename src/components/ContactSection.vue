@@ -126,7 +126,7 @@ async function handleSubmit() {
                 Votre message <span class="text-ems-green" aria-hidden="true">*</span>
               </label>
               <!-- Honeypot anti-spam : invisible pour les humains, rempli par les bots -->
-              <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;opacity:0;pointer-events:none;tab-index:-1;">
+              <div aria-hidden="true" tabindex:-1; style="position:absolute;left:-9999px;top:-9999px;opacity:0;pointer-events:none;">
                 <label for="_hp">Ne pas remplir</label>
                 <input id="_hp" v-model="form._hp" type="text" name="_hp" tabindex="-1" autocomplete="off" />
               </div>
