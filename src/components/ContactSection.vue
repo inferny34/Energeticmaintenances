@@ -188,7 +188,7 @@ async function handleSubmit() {
               </div>
               <div class="min-w-0">
                 <span class="block text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Email</span>
-                <a href="mailto:contact@energetic-ms.fr" class="text-xs font-bold text-slate-800 break-all hover:text-ems-green">contact@energetic-ms.fr</a>
+                <a href="mailto:contact@energeticmaintenances.fr" class="text-xs font-bold text-slate-800 break-all hover:text-ems-green">contact@energeticmaintenances.fr</a>
               </div>
             </div>
 

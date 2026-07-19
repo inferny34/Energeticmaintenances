@@ -64,7 +64,7 @@ if (strlen($company) > 200 || strlen($message) > 5000 || strlen($phone) > 30) {
 }
 
 // ── Construction de l'email ───────────────────────────────────────────────────
-$to      = 'contact@energetic-ms.fr';
+$to      = 'contact@energeticmaintenances.fr';
 $subject = '=?UTF-8?B?' . base64_encode('Nouvelle demande de devis — ' . $company) . '?=';
 
 $body  = "Vous avez reçu une nouvelle demande de devis via le formulaire de contact.\n\n";
@@ -83,7 +83,7 @@ $body .= "Envoyé depuis le formulaire energetic-ms.fr\n";
 $headers  = "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "Content-Transfer-Encoding: 8bit\r\n";
-$headers .= "From: EMS Contact <contact@energetic-ms.fr>\r\n";
+$headers .= "From: EMS Contact <contact@energeticmaintenances.fr>\r\n";
 $headers .= "Reply-To: " . $company . " <" . $email . ">\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
