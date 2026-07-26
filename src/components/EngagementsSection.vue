@@ -5,7 +5,7 @@ const engagements = [
     badgeText: 'Qualité',
     tag: 'Certification officielle',
     title: 'Certifié Qualifelec',
-    text: 'Qualification professionnelle de <strong>Qualifelec</strong> reconnue dans le domaine d\'activité. Gage de compétence et de sécurité pour vos <strong>installations électriques HTA</strong>.',
+    text: 'Qualification professionnelle de <strong>Qualifelec</strong> reconnue dans le domaine d\'activité. Gage de compétence et de sécurité pour vos <strong>installations IRVE</strong>.',
     svg: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`
   },
   {
@@ -13,7 +13,7 @@ const engagements = [
     badgeText: '20 ans',
     tag: 'Assurance Décennale',
     title: "20 ans d'expérience terrain",
-    text: "Ancienne agence d'intervention spécialisée <strong>Enedis</strong>. Expertise inégalée sur les <strong>réseaux HTA</strong>, postes clients et infrastructures électriques.",
+    text: "Ancien Technicien spécialisée <strong>Enedis</strong>. Expertise inégalée sur les <strong>réseaux HTA</strong>, postes clients et infrastructures électriques.",
     svg: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`
   },
   {

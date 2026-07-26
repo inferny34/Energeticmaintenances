@@ -43,7 +43,7 @@ const certifs = [
             de la région pour l'installation, la maintenance et la mise en conformité de vos postes clients HTA, assurant la continuité d'activité de vos infrastructures.
           </p>
           <p class="font-body text-sm text-[#8a96a8] leading-relaxed">
-            Certifié Qualielec et IRVE NIV1/2/3, nous garantissons des prestations conformes aux normes
+            Certifié Qualifelec et IRVE NIV1/2/3, nous garantissons des prestations conformes aux normes
             en vigueur pour le compte exclusif des professionnels, avec un professionnalisme rigoureux. 
             <span class="text-ems-green text-xs font-semibold block mt-2">EMS n'intervient pas auprès des particuliers.</span>
           </p>
