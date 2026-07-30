@@ -176,7 +176,7 @@ async function handleSubmit() {
               </div>
               <div>
                 <span class="block text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Téléphone</span>
-                <span class="text-sm font-bold text-slate-800">À renseigner</span>
+                <span class="text-sm font-bold text-slate-800">07 43 70 84 95</span>
               </div>
             </div>
 
