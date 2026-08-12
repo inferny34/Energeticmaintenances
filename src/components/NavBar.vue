@@ -33,11 +33,11 @@ const links = [
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
       <!-- LOGO -->
-      <a href="#hero" aria-label="Energetic Maintenance Services - Retour accueil"
+      <a href="#hero" aria-label="Energetic Maintenances Services - Retour accueil"
          class="flex items-center gap-3">
-        <img src="/logo.png" alt="Logo Energetic Maintenance Services" class="w-10 h-10 object-contain" />
+        <img src="/logo.png" alt="Logo Energetic Maintenances Services" class="w-10 h-10 object-contain" />
         <span class="hidden sm:block font-body text-ems-muted text-xs leading-tight">
-          Energetic Maintenance<br>Services
+          Energetic Maintenances<br>Services
         </span>
       </a>
 

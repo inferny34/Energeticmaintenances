@@ -27,7 +27,7 @@
         <img src="/logo.png" alt="EMS Logo" class="w-16 h-16 sm:w-20 sm:h-20 object-contain" />
         <h1 class="font-display font-extrabold leading-none text-white tracking-tight text-3xl sm:text-5xl uppercase">
           ENERGETIC<br>
-          <span class="text-ems-green">MAINTENANCE<br>SERVICES</span>
+          <span class="text-ems-green">MAINTENANCES<br>SERVICES</span>
         </h1>
       </div>
 

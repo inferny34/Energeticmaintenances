@@ -35,7 +35,7 @@ const certifs = [
         <!-- Texte (7 colonnes) -->
         <div class="lg:col-span-7 flex flex-col gap-6 text-left">
           <p class="font-body text-sm text-[#8a96a8] leading-relaxed">
-            Energetic Maintenance Services est une entreprise spécialisée dans les installations
+            Energetic Maintenances Services est une entreprise spécialisée dans les installations
             électriques Haute Tension (HTA) et les infrastructures de recharge de véhicules électriques (IRVE) <strong class="text-white">exclusivement dédiées aux entreprises, industriels, professionnels et collectivités</strong> dans le Sud de France.
           </p>
           <p class="font-body text-sm text-[#8a96a8] leading-relaxed">
