@@ -1,15 +1,16 @@
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick, defineAsyncComponent } from 'vue'
 import NavBar             from './components/NavBar.vue'
 import HeroSection        from './components/HeroSection.vue'
-import ServicesSection    from './components/ServicesSection.vue'
-import AboutSection       from './components/AboutSection.vue'
-import EngagementsSection from './components/EngagementsSection.vue'
-import ZoneSection        from './components/ZoneSection.vue'
-import ContactSection     from './components/ContactSection.vue'
-import FooterSection      from './components/FooterSection.vue'
-import MentionsLegales    from './components/MentionsLegales.vue'
-import PolitiqueConfidentialite from './components/PolitiqueConfidentialite.vue'
+
+const ServicesSection    = defineAsyncComponent(() => import('./components/ServicesSection.vue'))
+const AboutSection       = defineAsyncComponent(() => import('./components/AboutSection.vue'))
+const EngagementsSection = defineAsyncComponent(() => import('./components/EngagementsSection.vue'))
+const ZoneSection        = defineAsyncComponent(() => import('./components/ZoneSection.vue'))
+const ContactSection     = defineAsyncComponent(() => import('./components/ContactSection.vue'))
+const FooterSection      = defineAsyncComponent(() => import('./components/FooterSection.vue'))
+const MentionsLegales    = defineAsyncComponent(() => import('./components/MentionsLegales.vue'))
+const PolitiqueConfidentialite = defineAsyncComponent(() => import('./components/PolitiqueConfidentialite.vue'))
 
 const currentView = ref('home')
 

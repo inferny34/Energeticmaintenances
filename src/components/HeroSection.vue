@@ -8,7 +8,7 @@
 
     <!-- Image de fond avec masques dégradés premium -->
     <div class="absolute inset-0 z-0">
-      <img src="/hero_bg.png" alt="Lignes haute tension" class="w-full h-full object-cover object-center opacity-40" />
+      <img src="/hero_bg.webp" alt="Lignes haute tension" class="w-full h-full object-cover object-center opacity-40" fetchpriority="high" />
       <div class="absolute inset-0 bg-gradient-to-t from-ems-dark via-ems-dark/80 to-transparent"></div>
       <div class="absolute inset-0 bg-gradient-to-b from-ems-dark/80 via-transparent to-ems-dark"></div>
     </div>
@@ -24,7 +24,7 @@
 
       <!-- Logo & Titre de l'entreprise -->
       <div class="flex items-center gap-4 mb-6 text-left max-w-md sm:max-w-2xl">
-        <img src="/logo.png" alt="EMS Logo" class="w-16 h-16 sm:w-20 sm:h-20 object-contain" />
+        <img src="/logo.webp" alt="EMS Logo" class="w-16 h-16 sm:w-20 sm:h-20 object-contain" fetchpriority="high" />
         <h1 class="font-display font-extrabold leading-none text-white tracking-tight text-3xl sm:text-5xl uppercase">
           ENERGETIC<br>
           <span class="text-ems-green">MAINTENANCES<br>SERVICES</span>

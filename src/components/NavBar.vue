@@ -35,7 +35,7 @@ const links = [
       <!-- LOGO -->
       <a href="#hero" aria-label="Energetic Maintenances Services - Retour accueil"
          class="flex items-center gap-3">
-        <img src="/logo.png" alt="Logo Energetic Maintenances Services" class="w-10 h-10 object-contain" />
+        <img src="/logo.webp" alt="Logo Energetic Maintenances Services" class="w-10 h-10 object-contain" fetchpriority="high" />
         <span class="hidden sm:block font-body text-ems-muted text-xs leading-tight">
           Energetic Maintenances<br>Services
         </span>

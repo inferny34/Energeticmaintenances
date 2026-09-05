@@ -9,7 +9,7 @@
       <!-- Colonne 1 : Logo + tagline + Réseaux (5 cols) -->
       <div class="md:col-span-5 flex flex-col gap-6">
         <div class="flex items-center gap-3">
-          <img src="/logo.png" alt="Logo Energetic Maintenance Services" class="w-10 h-10 object-contain flex-shrink-0" />
+          <img src="/logo.webp" alt="Logo Energetic Maintenance Services" class="w-10 h-10 object-contain flex-shrink-0" loading="lazy" />
           <span class="font-display font-bold text-white text-sm uppercase tracking-wider leading-tight">
             Energetic Maintenance<br>Services
           </span>
