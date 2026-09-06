@@ -51,11 +51,11 @@ async function handleSubmit() {
       <div class="text-center mb-16 flex flex-col items-center">
         <!-- Badge -->
         <span class="inline-flex items-center justify-center bg-ems-green/10 border border-ems-green/20 rounded-full px-4 py-1 mb-4">
-          <span class="font-display font-bold text-xs uppercase tracking-wider text-ems-green">Contact & Devis</span>
+          <span class="font-display font-bold text-xs uppercase tracking-wider text-ems-green-dark">Contact & Devis</span>
         </span>
         
         <h2 id="contact-title" class="font-display font-extrabold text-slate-900 text-center uppercase tracking-tight mb-4 leading-none text-2xl sm:text-4xl">
-          Demandez votre <span class="text-ems-green">devis gratuit</span>
+          Demandez votre <span class="text-ems-green-dark">devis gratuit</span>
         </h2>
         
         <p class="font-body text-slate-600 text-base max-w-2xl mx-auto leading-relaxed">
@@ -222,7 +222,7 @@ async function handleSubmit() {
           <!-- Encadré Urgence bleu foncé -->
           <div class="bg-[#1b2a4a] text-white border border-ems-green/35 rounded-2xl p-6 shadow-lg flex flex-col gap-5 text-left">
             <div class="flex flex-col gap-2">
-              <h4 class="font-display font-extrabold text-lg uppercase tracking-wide text-white">Urgence ou projet urgent ?</h4>
+              <h3 class="font-display font-extrabold text-lg uppercase tracking-wide text-white">Urgence ou projet urgent ?</h3>
               <p class="font-body text-xs text-[#8a96a8] leading-relaxed">
                 Contactez-nous directement pour une <strong class="text-white">intervention rapide dans le Sud de France</strong> sur vos installations <strong class="text-white">HTA ou IRVE</strong>.
               </p>

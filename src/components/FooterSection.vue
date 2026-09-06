@@ -23,18 +23,18 @@
         </p>
         <!-- Réseaux sociaux -->
         <div class="flex items-center gap-3">
-          <a href="#" class="w-8 h-8 rounded-lg bg-[#162035] border border-[#1e2f4a] flex items-center justify-center text-white hover:text-ems-green hover:border-ems-green/55 transition-colors">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+          <a href="#" aria-label="Suivez-nous sur Facebook" class="w-8 h-8 rounded-lg bg-[#162035] border border-[#1e2f4a] flex items-center justify-center text-white hover:text-ems-green hover:border-ems-green/55 transition-colors">
+            <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
           </a>
-          <a href="#" class="w-8 h-8 rounded-lg bg-[#162035] border border-[#1e2f4a] flex items-center justify-center text-white hover:text-ems-green hover:border-ems-green/55 transition-colors">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          <a href="#" aria-label="Suivez-nous sur LinkedIn" class="w-8 h-8 rounded-lg bg-[#162035] border border-[#1e2f4a] flex items-center justify-center text-white hover:text-ems-green hover:border-ems-green/55 transition-colors">
+            <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
           </a>
         </div>
       </div>
 
       <!-- Colonne 2 : Liens rapides (3 cols) -->
       <div class="md:col-span-3">
-        <h4 class="font-display font-bold text-white uppercase tracking-wider mb-5 text-sm">Liens rapides</h4>
+        <h3 class="font-display font-bold text-white uppercase tracking-wider mb-5 text-sm">Liens rapides</h3>
         <ul class="flex flex-col gap-3" role="list">
           <li>
             <a href="#services" class="hover:text-white transition-colors">Services HTA & IRVE</a>
@@ -57,7 +57,7 @@
       <!-- Colonne 3 : Contact et badge (4 cols) -->
       <div class="md:col-span-4 flex flex-col gap-6">
         <div>
-          <h4 class="font-display font-bold text-white uppercase tracking-wider mb-5 text-sm">Contact</h4>
+          <h3 class="font-display font-bold text-white uppercase tracking-wider mb-5 text-sm">Contact</h3>
           <ul class="flex flex-col gap-3 text-[#8a96a8]" role="list">
             <li class="flex items-center gap-2">
               <svg class="w-4 h-4 flex-shrink-0 text-ems-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /></svg>

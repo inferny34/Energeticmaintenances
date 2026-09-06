@@ -38,11 +38,11 @@ const services = [
       <div class="text-center mb-16 flex flex-col items-center">
         <!-- Badge -->
         <span class="inline-flex items-center justify-center bg-ems-green/10 border border-ems-green/20 rounded-full px-4 py-1 mb-4">
-          <span class="font-display font-bold text-xs uppercase tracking-wider text-ems-green">Nos Services</span>
+          <span class="font-display font-bold text-xs uppercase tracking-wider text-ems-green-dark">Nos Services</span>
         </span>
         
         <h2 id="services-title" class="font-display font-extrabold text-slate-900 text-center uppercase tracking-tight mb-4 leading-none text-2xl sm:text-4xl">
-          Expertise <span class="text-ems-green">HTA & IRVE</span> dans le <span class="text-ems-green">Sud de France</span>
+          Expertise <span class="text-ems-green-dark">HTA & IRVE</span> dans le <span class="text-ems-green-dark">Sud de France</span>
         </h2>
         
         <p class="font-body text-slate-600 text-base max-w-2xl mx-auto leading-relaxed">

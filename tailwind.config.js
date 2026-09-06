@@ -11,6 +11,7 @@ export default {
         'ems-footer':     '#070E1A',
         'ems-border':     '#1E2F4A',
         'ems-green':      '#5DBE3A',
+        'ems-green-dark': '#2B7018',
         'ems-green-alt':  '#4CAF50',
         'ems-text':       '#EFF0F2',
         'ems-muted':      '#8A96A8',
