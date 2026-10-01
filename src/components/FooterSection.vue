@@ -15,15 +15,15 @@
           </span>
         </div>
         <p class="text-[#8a96a8] leading-relaxed max-w-sm">
-          Spécialiste <strong class="text-white">Haute Tension HTA</strong> et <strong class="text-white">IRVE</strong> dans le Sud de France. 20 ans d'expérience en agence d'intervention spécialisée Enedis. Certifié Qualifelec.
+          Installation de <strong class="text-white">bornes de recharge IRVE</strong> pour particuliers et maintenance de <strong class="text-white">postes clients HTA</strong> en Occitanie et départements limitrophes. Certifié Qualifelec.
         </p>
         <!-- Coordonnées locales -->
         <p class="text-[#8a96a8]/70">
-          Maintenance HTA & Bornes IRVE — Sud de France
+          Bornes IRVE & Haute Tension HTA — 12 départements
         </p>
         <!-- Réseaux sociaux -->
         <div class="flex items-center gap-3">
-          <a href="#" aria-label="Suivez-nous sur Instagram" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-[#162035] border border-[#1e2f4a] flex items-center justify-center text-white hover:text-ems-green hover:border-ems-green/55 transition-colors">
+          <a href="https://www.instagram.com/energeticmaintenancesservices/" aria-label="Suivez-nous sur Instagram" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-[#162035] border border-[#1e2f4a] flex items-center justify-center text-white hover:text-ems-green hover:border-ems-green/55 transition-colors">
             <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           </a>
           <a href="https://www.linkedin.com/in/philippe-nadal-37900a423/recent-activity/all/" aria-label="Suivez-nous sur LinkedIn" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-[#162035] border border-[#1e2f4a] flex items-center justify-center text-white hover:text-ems-green hover:border-ems-green/55 transition-colors">
@@ -37,13 +37,19 @@
         <h3 class="font-display font-bold text-white uppercase tracking-wider mb-5 text-sm">Liens rapides</h3>
         <ul class="flex flex-col gap-3" role="list">
           <li>
-            <a href="#services" class="hover:text-white transition-colors">Services HTA & IRVE</a>
+            <a href="#bornes" class="hover:text-white transition-colors">Borne à domicile</a>
+          </li>
+          <li>
+            <a href="#depannage" class="hover:text-white transition-colors">Dépannage & Conformité</a>
+          </li>
+          <li>
+            <a href="#pros" class="hover:text-white transition-colors">Expertise Pros (HTA/IRVE)</a>
+          </li>
+          <li>
+            <a href="#recommandation" class="hover:text-white transition-colors">Programme Recommandation</a>
           </li>
           <li>
             <a href="#about" class="hover:text-white transition-colors">À Propos</a>
-          </li>
-          <li>
-            <a href="#engagements" class="hover:text-white transition-colors">Nos Engagements</a>
           </li>
           <li>
             <a href="#zone" class="hover:text-white transition-colors">Zone d'intervention</a>
@@ -61,7 +67,7 @@
           <ul class="flex flex-col gap-3 text-[#8a96a8]" role="list">
             <li class="flex items-center gap-2">
               <svg class="w-4 h-4 flex-shrink-0 text-ems-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /></svg>
-              <span>À renseigner</span>
+              <span>34 av. de Sète — 34560 Poussan</span>
             </li>
             <li class="flex items-center gap-2">
               <svg class="w-4 h-4 flex-shrink-0 text-ems-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
@@ -69,7 +75,7 @@
             </li>
             <li class="flex items-center gap-2">
               <svg class="w-4 h-4 flex-shrink-0 text-ems-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" /></svg>
-              <span>Sud de France <br><span class="text-[10px] text-slate-500 font-normal">Déplacements sur tout le territoire</span></span>
+              <span>Occitanie & limitrophes <br><span class="text-[10px] text-slate-500 font-normal">Déplacements sur 12 départements</span></span>
             </li>
           </ul>
         </div>

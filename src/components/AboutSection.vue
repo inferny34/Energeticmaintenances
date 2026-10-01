@@ -1,9 +1,9 @@
 <script setup>
 const metrics = [
   { value: '20 ans', label: "D'expérience Enedis" },
-  { value: 'NIV1/2/3',  label: 'Certifié IRVE' },
-  { value: '48h',    label: "Délai d'intervention" },
-  { value: 'Sud de France', label: "Zone d'intervention" }
+  { value: 'NIV1/2/3', label: 'Certifié IRVE' },
+  { value: '48h', label: 'Réponse ouvrée' },
+  { value: '12 dép.', label: "Zone d'intervention" }
 ]
 
 const certifs = [
@@ -11,7 +11,7 @@ const certifs = [
   'Habilitation HTA',
   'Certifié IRVE NIV1/2/3',
   'IRVE MA1/A2/A3',
-  'Ex-Enedis 20 ans'
+  '20 ans de métier'
 ]
 </script>
 
@@ -25,7 +25,7 @@ const certifs = [
           <span class="font-display font-bold text-xs uppercase tracking-wider text-ems-green">Qui sommes-nous</span>
         </span>
         <h2 id="about-title" class="font-display font-extrabold text-white uppercase tracking-tight leading-none text-2xl sm:text-4xl">
-          20 ans d'expertise au service de votre installation électrique
+          Une solide expérience au service de votre installation électrique
         </h2>
       </div>
 
@@ -36,19 +36,16 @@ const certifs = [
         <div class="lg:col-span-7 flex flex-col gap-6 text-left">
           <p class="font-body text-sm text-[#8a96a8] leading-relaxed">
             Energetic Maintenances Services est une entreprise spécialisée dans les installations
-            électriques Haute Tension (HTA) et les infrastructures de recharge de véhicules électriques (IRVE) <strong class="text-white">exclusivement dédiées aux entreprises, industriels, professionnels et collectivités</strong> dans le Sud de France.
+            électriques Haute Tension (HTA) et les infrastructures de recharge de véhicules électriques (IRVE), au service des <strong class="text-white">particuliers, professionnels et collectivités</strong> en Occitanie et départements limitrophes.
           </p>
           <p class="font-body text-sm text-[#8a96a8] leading-relaxed">
-            Fort de 20 années d'expérience acquises au sein d'Enedis, nous intervenons sur l'ensemble
-            de la région pour l'installation, la maintenance et la mise en conformité de vos postes clients HTA, assurant la continuité d'activité de vos infrastructures.
+            Fort de 20 années d'expérience technique acquises au sein d'Enedis en intervention spécialisée, nous mettons ce savoir-faire au service de vos bornes de recharge résidentielles et de vos postes clients industriels.
           </p>
           <p class="font-body text-sm text-[#8a96a8] leading-relaxed">
-            Certifié Qualifelec et IRVE NIV1/2/3, nous garantissons des prestations conformes aux normes
-            en vigueur pour le compte exclusif des professionnels, avec un professionnalisme rigoureux. 
-            <span class="text-ems-green text-xs font-semibold block mt-2">EMS n'intervient pas auprès des particuliers.</span>
+            Certifiés Qualifelec et IRVE NIV1/2/3, nous garantissons des réalisations sécurisées, durables et strictement conformes aux normes électriques françaises.
           </p>
           <a href="#contact" class="inline-flex items-center justify-center bg-ems-green text-ems-dark font-body font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-lg hover:bg-ems-green-alt transition-colors w-fit mt-2">
-            Espace Professionnel
+            Demander un devis
           </a>
         </div>
 

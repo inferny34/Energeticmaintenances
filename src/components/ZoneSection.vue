@@ -1,7 +1,17 @@
 <script setup>
-const villes = [
-  'Montpellier', 'Toulouse', 'Nîmes', 'Perpignan',
-  'Béziers', 'Carcassonne', 'Sète', 'Narbonne'
+const departements = [
+  { code: '34', nom: 'Hérault' },
+  { code: '30', nom: 'Gard' },
+  { code: '13', nom: 'Bouches-du-Rhône' },
+  { code: '84', nom: 'Vaucluse' },
+  { code: '07', nom: 'Ardèche' },
+  { code: '48', nom: 'Lozère' },
+  { code: '12', nom: 'Aveyron' },
+  { code: '81', nom: 'Tarn' },
+  { code: '11', nom: 'Aude' },
+  { code: '66', nom: 'Pyrénées-Orientales' },
+  { code: '09', nom: 'Ariège' },
+  { code: '31', nom: 'Haute-Garonne' }
 ]
 </script>
 
@@ -26,35 +36,34 @@ const villes = [
 
       <!-- Titre de section centré -->
       <h2 id="zone-title" class="font-display font-extrabold text-white text-center uppercase tracking-tight mb-6 leading-none text-2xl sm:text-4xl">
-        Intervention dans tout le <span class="text-ems-green">Sud de France</span>
+        Intervention sur <span class="text-ems-green">12 départements</span>
       </h2>
 
       <!-- Description de la zone d'intervention -->
-      <p class="font-body text-[#8a96a8] text-sm max-w-2xl mx-auto leading-relaxed mb-12">
-        Notre zone d'intervention principale couvre les départements du <strong class="text-white">Hérault (34)</strong>, du <strong class="text-white">Gard (30)</strong>,
-        de l'<strong class="text-white">Aude (11)</strong>, des <strong class="text-white">Pyrénées-Orientales (66)</strong> et de la <strong class="text-white">Haute-Garonne (31)</strong>.
-        Des déplacements sont possibles sur l'ensemble de la région sur devis.
+      <p class="font-body text-[#8a96a8] text-sm max-w-2xl mx-auto leading-relaxed mb-10">
+        Basés à Poussan dans l'Hérault, nous nous déplaçons rapidement pour l'installation de votre borne de recharge et vos besoins électriques en Occitanie et départements limitrophes.
       </p>
 
-      <!-- Grille des villes centrée (4 colonnes sur SM, 2 colonnes sur XS) -->
-      <ul class="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-5 mb-12 text-left w-full max-w-2xl border-t border-b border-[#1e2f4a]/50 py-8" aria-label="Villes d'intervention">
-        <li v-for="ville in villes" :key="ville"
-            class="flex items-center gap-2 font-body text-sm text-[#8a96a8]">
-          <svg class="text-ems-green w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          {{ ville }}
+      <!-- Grille des 12 départements sous forme de badges lisibles -->
+      <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-10 w-full max-w-3xl" aria-label="Départements couverts">
+        <li v-for="d in departements" :key="d.code"
+            class="bg-[#162035] border border-[#1e2f4a] rounded-xl px-4 py-3 flex items-center gap-3 text-left hover:border-ems-green/40 transition-colors">
+          <span class="font-display font-bold text-xs bg-ems-green/10 text-ems-green px-2 py-1 rounded-md flex-shrink-0">
+            {{ d.code }}
+          </span>
+          <span class="font-body font-semibold text-xs text-white/90 truncate">
+            {{ d.nom }}
+          </span>
         </li>
       </ul>
 
       <!-- Note et CTA -->
       <p class="font-body text-xs text-[#8a96a8]/70 mb-8">
-        Intervention possible hors zone sur devis — nous contacter pour tout projet spécifique.
+        Vous avez un doute sur votre localisation ? Contactez-nous pour vérifier notre disponibilité sur votre commune.
       </p>
 
       <a href="#contact" class="inline-flex items-center justify-center bg-ems-green text-ems-dark font-body font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-lg hover:bg-ems-green-alt transition-colors w-fit">
-        Vérifier ma zone
+        Vérifier mon projet
       </a>
 
     </div>

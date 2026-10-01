@@ -3,14 +3,20 @@ import { ref, onMounted, onUnmounted, nextTick, defineAsyncComponent } from 'vue
 import NavBar             from './components/NavBar.vue'
 import HeroSection        from './components/HeroSection.vue'
 
-const ServicesSection    = defineAsyncComponent(() => import('./components/ServicesSection.vue'))
-const AboutSection       = defineAsyncComponent(() => import('./components/AboutSection.vue'))
-const EngagementsSection = defineAsyncComponent(() => import('./components/EngagementsSection.vue'))
-const ZoneSection        = defineAsyncComponent(() => import('./components/ZoneSection.vue'))
-const ContactSection     = defineAsyncComponent(() => import('./components/ContactSection.vue'))
-const FooterSection      = defineAsyncComponent(() => import('./components/FooterSection.vue'))
-const MentionsLegales    = defineAsyncComponent(() => import('./components/MentionsLegales.vue'))
+const BornesSection        = defineAsyncComponent(() => import('./components/BornesSection.vue'))
+const DepannageSection     = defineAsyncComponent(() => import('./components/DepannageSection.vue'))
+const ExpertiseProsSection = defineAsyncComponent(() => import('./components/ExpertiseProsSection.vue'))
+const AboutSection         = defineAsyncComponent(() => import('./components/AboutSection.vue'))
+const EngagementsSection   = defineAsyncComponent(() => import('./components/EngagementsSection.vue'))
+const ZoneSection          = defineAsyncComponent(() => import('./components/ZoneSection.vue'))
+const ParrainageSection    = defineAsyncComponent(() => import('./components/ParrainageSection.vue'))
+const ContactSection       = defineAsyncComponent(() => import('./components/ContactSection.vue'))
+const FooterSection        = defineAsyncComponent(() => import('./components/FooterSection.vue'))
+const MentionsLegales      = defineAsyncComponent(() => import('./components/MentionsLegales.vue'))
 const PolitiqueConfidentialite = defineAsyncComponent(() => import('./components/PolitiqueConfidentialite.vue'))
+
+// Section masquée (en attente de photos et autorisations)
+// const RealisationsSection = defineAsyncComponent(() => import('./components/RealisationsSection.vue'))
 
 const currentView = ref('home')
 
@@ -25,9 +31,8 @@ function handleHashChange() {
   } else {
     const wasHome = currentView.value === 'home'
     currentView.value = 'home'
-    
-    // Si on vient d'une page légale et qu'il y a un hash (ex: #contact, #services),
-    // on attend le rendu complet du DOM avant d'effectuer le scroll
+
+    // Si on vient d'une page légale et qu'il y a un hash, attente du rendu DOM
     if (!wasHome && hash) {
       nextTick(() => {
         const element = document.querySelector(hash)
@@ -41,7 +46,7 @@ function handleHashChange() {
 
 onMounted(() => {
   window.addEventListener('hashchange', handleHashChange)
-  handleHashChange() // Vérification initiale au chargement
+  handleHashChange()
 })
 
 onUnmounted(() => {
@@ -53,10 +58,14 @@ onUnmounted(() => {
   <NavBar />
   <main v-if="currentView === 'home'">
     <HeroSection />
-    <ServicesSection />
+    <BornesSection />
+    <DepannageSection />
+    <ExpertiseProsSection />
     <AboutSection />
     <EngagementsSection />
     <ZoneSection />
+    <ParrainageSection />
+    <!-- <RealisationsSection /> -->
     <ContactSection />
   </main>
   <MentionsLegales v-else-if="currentView === 'mentions'" />

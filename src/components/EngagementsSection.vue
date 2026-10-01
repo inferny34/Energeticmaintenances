@@ -10,18 +10,18 @@ const engagements = [
   },
   {
     id: 'experience',
-    badgeText: '20 ans',
+    badgeText: 'Métier',
     tag: 'Assurance Décennale',
-    title: "20 ans d'expérience terrain",
-    text: "Ancien Technicien spécialisée <strong>Enedis</strong>. Expertise inégalée sur les <strong>réseaux HTA</strong>, postes clients et infrastructures électriques.",
+    title: "Savoir-faire éprouvé",
+    text: "Solide expérience sur les <strong>réseaux électriques</strong>, postes clients et infrastructures de recharge de véhicules.",
     svg: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`
   },
   {
-    id: 'sud-de-france',
+    id: 'zone-proximite',
     badgeText: 'Proximité',
     tag: "Zone d'intervention",
-    title: 'Intervention dans le Sud de France',
-    text: 'Implantation rapide sur tout le <strong>Sud de France</strong>. Proximité et réactivité pour vos urgences et projets d\'<strong>infrastructures électriques</strong>.',
+    title: 'Intervention sur 12 départements',
+    text: 'Implantation locale en Occitanie et départements limitrophes. Réactivité pour vos projets d\'<strong>infrastructures électriques</strong>.',
     svg: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5DBE3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`
   },
   {
@@ -58,7 +58,7 @@ const engagements = [
         </h2>
         
         <p class="font-body text-slate-600 text-base max-w-2xl mx-auto leading-relaxed">
-          Une expertise unique issue des <strong class="text-slate-900">réseaux Enedis</strong>, des certifications reconnues et une présence locale dans le <strong class="text-slate-900">Sud de France</strong>.
+          Des compétences pointues en électricité Haute et Basse Tension, des certifications reconnues et une réelle proximité locale.
         </p>
       </div>
 
@@ -102,7 +102,7 @@ const engagements = [
 
       <!-- Bas de section : Étoiles et référence -->
       <div class="flex flex-col items-center text-center gap-2 mt-4">
-        <span class="font-body text-xs text-slate-500 uppercase tracking-wider font-semibold">référence professionnels dans le Sud de France</span>
+        <span class="font-body text-xs text-slate-500 uppercase tracking-wider font-semibold">Installateur électricien qualifié en Occitanie</span>
         <!-- 5 Étoiles vertes -->
         <div class="flex items-center gap-1.5" role="img" aria-label="5 étoiles de notation">
           <svg v-for="i in 5" :key="i" class="w-4 h-4 text-ems-green" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
