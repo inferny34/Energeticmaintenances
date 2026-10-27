@@ -68,6 +68,17 @@
           </p>
         </div>
 
+        <!-- Médiation -->
+        <div class="border-b border-ems-border/50 pb-8">
+          <h2 class="font-display text-xl text-white uppercase tracking-wider mb-4">5. Médiation de la consommation</h2>
+          <p>Conformément aux articles L.611-1 et suivants du Code de la consommation, en cas de litige non résolu avec EMS, le client consommateur peut recourir gratuitement au médiateur de la consommation suivant :</p>
+          <ul class="list-none space-y-2 mt-4 text-ems-text bg-ems-surface border border-ems-border/50 rounded-lg p-5">
+            <li><strong>Raison sociale :</strong> Centre de la Médiation de la Consommation de Conciliateurs de Justice</li>
+            <li><strong>Adresse :</strong> 49 rue de Ponthieu, 75008 Paris, France</li>
+            <li><strong>Site Internet :</strong> <a href="www.cm2c.net" target="_blank" rel="noopener noreferrer" class="text-ems-green hover:underline">www.cm2c.net</a></li>
+          </ul>
+        </div>
+
       </div>
 
     </div>

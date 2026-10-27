@@ -19,3 +19,12 @@ yarn-error.log*
 # Système
 .DS_Store
 Thumbs.db
+
+# Configuration serveur et données privées (ne jamais commiter)
+apporteurs_config.php
+config.local.php
+public/api/config.php
+*.local.php
+apporteurs_data/
+/data/contacts.jsonl
+migration-apporteurs/
