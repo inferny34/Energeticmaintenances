@@ -1,5 +1,11 @@
 <script setup>
-// Pas de logique dynamique nécessaire
+import { RouterLink, useRoute } from 'vue-router'
+
+const route = useRoute()
+
+function getHref(hash) {
+  return route.path === '/' ? hash : '/' + hash
+}
 </script>
 
 <template>
@@ -37,25 +43,28 @@
         <h3 class="font-display font-bold text-white uppercase tracking-wider mb-5 text-sm">Liens rapides</h3>
         <ul class="flex flex-col gap-3" role="list">
           <li>
-            <a href="#bornes" class="hover:text-white transition-colors">Borne à domicile</a>
+            <a :href="getHref('#bornes')" class="hover:text-white transition-colors">Borne à domicile</a>
           </li>
           <li>
-            <a href="#depannage" class="hover:text-white transition-colors">Dépannage & Conformité</a>
+            <a :href="getHref('#depannage')" class="hover:text-white transition-colors">Dépannage & Conformité</a>
           </li>
           <li>
-            <a href="#pros" class="hover:text-white transition-colors">Expertise Pros (HTA/IRVE)</a>
+            <a :href="getHref('#pros')" class="hover:text-white transition-colors">Expertise Pros (HTA/IRVE)</a>
           </li>
           <li>
-            <a href="#recommandation" class="hover:text-white transition-colors">Programme Recommandation</a>
+            <a :href="getHref('#recommandation')" class="hover:text-white transition-colors">Programme Recommandation</a>
           </li>
           <li>
-            <a href="#about" class="hover:text-white transition-colors">À Propos</a>
+            <RouterLink to="/apporteurs" class="hover:text-white transition-colors">Programme Apporteurs (Pro)</RouterLink>
           </li>
           <li>
-            <a href="#zone" class="hover:text-white transition-colors">Zone d'intervention</a>
+            <a :href="getHref('#about')" class="hover:text-white transition-colors">À Propos</a>
           </li>
           <li>
-            <a href="#contact" class="hover:text-white transition-colors">Demander un devis</a>
+            <a :href="getHref('#zone')" class="hover:text-white transition-colors">Zone d'intervention</a>
+          </li>
+          <li>
+            <a :href="getHref('#contact')" class="hover:text-white transition-colors">Demander un devis</a>
           </li>
         </ul>
       </div>
@@ -98,9 +107,9 @@
     <div class="max-w-6xl mx-auto px-6 border-t border-[#1e2f4a]/50 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[#8a96a8]/50">
       <p>© 2026 ENERGETIC MAINTENANCE SERVICES — Tous droits réservés — SIRET : 107 267 486 00010</p>
       <div class="flex items-center gap-4">
-        <a href="#mentions" class="hover:text-white transition-colors">Mentions légales</a>
+        <RouterLink to="/mentions" class="hover:text-white transition-colors">Mentions légales</RouterLink>
         <span>·</span>
-        <a href="#privacy" class="hover:text-white transition-colors">Politique de confidentialité</a>
+        <RouterLink to="/privacy" class="hover:text-white transition-colors">Politique de confidentialité</RouterLink>
       </div>
     </div>
   </footer>

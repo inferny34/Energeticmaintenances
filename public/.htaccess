@@ -1,3 +1,14 @@
+# SPA Rewrite Rules for Vue Router (HTML5 History Mode)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    # Ne pas réécrire les fichiers de l'API ni les assets réels
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.html [L]
+</IfModule>
+
 <IfModule mod_expires.c>
     ExpiresActive On
     

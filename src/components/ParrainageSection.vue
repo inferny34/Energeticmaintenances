@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 // Section Programme de recommandation pour les particuliers
 </script>
 
@@ -76,13 +77,14 @@
             Invitez-le à remplir le formulaire de contact en renseignant votre nom dans le champ prévu à cet effet.
           </p>
           <p class="font-body text-[11px] text-[#8a96a8]/70 mt-1">
-            * Versement de la commission sous réserve de validation du chantier et selon les <a href="#contact" class="underline hover:text-ems-green">conditions générales du programme de recommandation</a>.
+            * Versement de la commission sous réserve de validation du chantier et selon les <RouterLink to="/apporteurs#conditions" class="underline hover:text-ems-green">conditions générales du programme de recommandation</RouterLink>.
           </p>
         </div>
-        <a href="#contact"
-           class="inline-flex items-center justify-center bg-ems-green text-ems-dark font-body font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-lg hover:bg-ems-green-alt transition-colors flex-shrink-0">
+        <RouterLink
+          to="/apporteurs#recommander"
+          class="inline-flex items-center justify-center bg-ems-green text-ems-dark font-body font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-lg hover:bg-ems-green-alt transition-colors flex-shrink-0">
           Nous recommander un projet &nbsp;→
-        </a>
+        </RouterLink>
       </div>
 
     </div>
