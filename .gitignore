@@ -4,14 +4,34 @@ node_modules/
 # Build Vite
 dist/
 
-# Fichiers environnement
+# Fichiers environnement & secrets
 .env
 .env.*
+*.local
+*.local.php
+apporteurs_config.php
+config.local.php
+public/api/config.php
+*smtp*.php
+# Exception : la librairie PHPMailer SMTP (pas un fichier de config)
+!public/api/lib/SMTP.php
+
+# Dossiers de données privées et storage hors web
+storage/
+apporteurs_data/
+/data/contacts.jsonl
+*.jsonl
+rate_limits.json
+
+# Dossiers sources / prototypes
+migration-apporteurs/
+modif/
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
 
 # IDE
 .vscode/
@@ -19,12 +39,3 @@ yarn-error.log*
 # Système
 .DS_Store
 Thumbs.db
-
-# Configuration serveur et données privées (ne jamais commiter)
-apporteurs_config.php
-config.local.php
-public/api/config.php
-*.local.php
-apporteurs_data/
-/data/contacts.jsonl
-migration-apporteurs/

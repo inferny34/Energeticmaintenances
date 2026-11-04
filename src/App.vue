@@ -1,24 +1,34 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import NavBar from './components/NavBar.vue'
 import FooterSection from './components/FooterSection.vue'
 
 const router = useRouter()
 
-onMounted(() => {
-  // Rétrocompatibilité : si l'utilisateur arrive avec /#mentions ou /#privacy
+function checkLegalHash() {
   const hash = window.location.hash
   if (hash === '#mentions') {
     router.replace('/mentions')
   } else if (hash === '#privacy') {
     router.replace('/privacy')
   }
+}
+
+onMounted(() => {
+  window.addEventListener('hashchange', checkLegalHash)
+  checkLegalHash()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('hashchange', checkLegalHash)
 })
 </script>
 
 <template>
   <NavBar />
-  <RouterView />
+  <main class="min-h-[calc(100vh-4rem)] flex flex-col">
+    <RouterView />
+  </main>
   <FooterSection />
 </template>

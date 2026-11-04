@@ -80,6 +80,17 @@ const router = createRouter({
   },
 })
 
+// Redirection côté client des ancres legacy /#mentions et /#privacy vers leurs routes dédiées
+router.beforeEach((to, from, next) => {
+  if (to.path === '/' && to.hash === '#mentions') {
+    return next({ path: '/mentions', replace: true })
+  }
+  if (to.path === '/' && to.hash === '#privacy') {
+    return next({ path: '/privacy', replace: true })
+  }
+  next()
+})
+
 // Mise à jour dynamique du <title> et des balises méta (SEO & robots)
 router.afterEach((to) => {
   if (to.meta?.title) {
@@ -97,16 +108,14 @@ router.afterEach((to) => {
     metaDesc.content = to.meta.description
   }
 
-  // Robots (ex: noindex, nofollow sur /apporteurs)
+  // Robots : remise automatique à 'index, follow' dès que l'on quitte /apporteurs
   let metaRobots = document.querySelector('meta[name="robots"]')
-  if (to.meta?.robots) {
-    if (!metaRobots) {
-      metaRobots = document.createElement('meta')
-      metaRobots.name = 'robots'
-      document.head.appendChild(metaRobots)
-    }
-    metaRobots.content = to.meta.robots
+  if (!metaRobots) {
+    metaRobots = document.createElement('meta')
+    metaRobots.name = 'robots'
+    document.head.appendChild(metaRobots)
   }
+  metaRobots.content = to.meta?.robots || 'index, follow'
 })
 
 export default router

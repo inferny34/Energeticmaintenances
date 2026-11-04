@@ -30,9 +30,6 @@ return [
         'encryption' => 'tls', // 'tls' ou 'ssl'
     ],
 
-    // Chemin vers l'autoloader Composer si PHPMailer est installé (facultatif)
-    'composer_autoload' => dirname(__DIR__) . '/vendor/autoload.php',
-
     // Limitation de débit (anti-spam) : nombre max de requêtes par IP par fenêtre de temps (en secondes)
     'rate_limit' => [
         'max_requests' => 5,

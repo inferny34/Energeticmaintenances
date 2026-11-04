@@ -14,6 +14,14 @@
 
 declare(strict_types=1);
 
+// ── Chargement autonome de PHPMailer embarqué (sans Composer) ───────────────
+require_once __DIR__ . '/lib/Exception.php';
+require_once __DIR__ . '/lib/PHPMailer.php';
+require_once __DIR__ . '/lib/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 // ── Headers de sécurité et JSON ──────────────────────────────────────────────
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
@@ -66,14 +74,13 @@ $config = [
     'mail_from_name'     => 'EMS Programme Apporteurs',
     'storage_dir'        => dirname(dirname(__DIR__)) . '/apporteurs_data',
     'smtp'               => [
-        'enabled'  => false,
-        'host'     => 'smtp-relay.brevo.com',
-        'port'     => 587,
-        'username' => '',
-        'password' => '',
+        'enabled'    => true,
+        'host'       => 'smtp-relay.brevo.com',
+        'port'       => 587,
+        'username'   => '',
+        'password'   => '',
         'encryption' => 'tls',
     ],
-    'composer_autoload'  => dirname(dirname(__DIR__)) . '/vendor/autoload.php',
     'rate_limit'         => [
         'max_requests'   => 5,
         'window_seconds' => 3600,
@@ -90,48 +97,72 @@ foreach ($configLocations as $cfgFile) {
     }
 }
 
-// Répertoire privé pour les fichiers et logs (hors public_html)
+// Répertoire privé pour les fichiers, rate limits et logs (HORS de public_html)
 $storageDir = rtrim($config['storage_dir'], '/\\');
 if (!is_dir($storageDir)) {
     @mkdir($storageDir, 0750, true);
 }
 
-// ── 5. Limitation de débit par IP (Rate Limiting) ───────────────────────────
+// ── 5. Limitation de débit par IP (Rate Limiting) avec flock() ──────────────
+function checkRateLimit(string $ip, string $storageDir, int $maxRequests, int $windowSeconds): bool {
+    $file = $storageDir . '/rate_limits.json';
+    $fp = @fopen($file, 'c+');
+    if (!$fp) {
+        return true;
+    }
+
+    if (!flock($fp, LOCK_EX)) {
+        fclose($fp);
+        return true;
+    }
+
+    $raw = '';
+    while (!feof($fp)) {
+        $raw .= fread($fp, 8192);
+    }
+
+    $limits = json_decode($raw, true) ?: [];
+    $now = time();
+
+    // Purge des expirés
+    foreach ($limits as $k => $v) {
+        if (!isset($v['start']) || ($now - (int)$v['start']) > $windowSeconds) {
+            unset($limits[$k]);
+        }
+    }
+
+    $allowed = true;
+    if (!isset($limits[$ip])) {
+        $limits[$ip] = ['start' => $now, 'count' => 1];
+    } else {
+        $limits[$ip]['count']++;
+        if ($limits[$ip]['count'] > $maxRequests) {
+            $allowed = false;
+        }
+    }
+
+    ftruncate($fp, 0);
+    rewind($fp);
+    fwrite($fp, json_encode($limits, JSON_UNESCAPED_UNICODE));
+    fflush($fp);
+    flock($fp, LOCK_UN);
+    fclose($fp);
+
+    return $allowed;
+}
+
 $clientIp = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
-$rateLimitFile = $storageDir . '/rate_limits.json';
 $maxRequests = (int)($config['rate_limit']['max_requests'] ?? 5);
 $windowSeconds = (int)($config['rate_limit']['window_seconds'] ?? 3600);
-$now = time();
 
-$rateLimits = [];
-if (file_exists($rateLimitFile)) {
-    $raw = @file_get_contents($rateLimitFile);
-    if ($raw) {
-        $rateLimits = json_decode($raw, true) ?: [];
-    }
+if (!checkRateLimit($clientIp, $storageDir, $maxRequests, $windowSeconds)) {
+    http_response_code(429);
+    echo json_encode([
+        'success' => false,
+        'error'   => 'Trop de demandes envoyées depuis cette adresse IP. Veuillez patienter avant de renouveler l’opération.',
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
 }
-
-// Nettoyage des anciennes IP
-foreach ($rateLimits as $ip => $data) {
-    if ($now - $data['start'] > $windowSeconds) {
-        unset($rateLimits[$ip]);
-    }
-}
-
-if (!isset($rateLimits[$clientIp])) {
-    $rateLimits[$clientIp] = ['start' => $now, 'count' => 1];
-} else {
-    $rateLimits[$clientIp]['count']++;
-    if ($rateLimits[$clientIp]['count'] > $maxRequests) {
-        http_response_code(429);
-        echo json_encode([
-            'success' => false,
-            'error'   => 'Trop de demandes envoyées depuis cette adresse IP. Veuillez patienter avant de renouveler l’opération.',
-        ], JSON_UNESCAPED_UNICODE);
-        exit;
-    }
-}
-@file_put_contents($rateLimitFile, json_encode($rateLimits), LOCK_EX);
 
 // ── 6. Détermination du type de formulaire ──────────────────────────────────
 $formType = $_GET['form'] ?? $_POST['form_type'] ?? '';
@@ -144,12 +175,41 @@ if (!in_array($formType, ['registration', 'referral'], true)) {
     exit;
 }
 
-// ── 7. Helpers de validation et fichiers ─────────────────────────────────────
-function clean(string $key, int $maxLen = 500): string {
-    $val = $_POST[$key] ?? '';
-    if (!is_string($val)) return '';
+// ── 7. Sanitisation stricte anti-CRLF et protection contre injections ────────
+/**
+ * Nettoie une chaîne contre les injections CRLF (pour headers email, noms, sujets)
+ */
+function cleanHeader(string $val, int $maxLen = 200): string {
+    $val = str_replace(["\r", "\n", "\0", "%0a", "%0d", "%0A", "%0D"], '', $val);
     $val = trim(strip_tags($val));
     return mb_substr($val, 0, $maxLen, 'UTF-8');
+}
+
+/**
+ * Nettoie et valide une adresse e-mail
+ */
+function cleanEmail(string $key): string {
+    $val = cleanHeader((string)($_POST[$key] ?? ''), 254);
+    $filtered = filter_var($val, FILTER_VALIDATE_EMAIL);
+    return $filtered ? (string)$filtered : '';
+}
+
+/**
+ * Nettoie un champ texte multiligne
+ */
+function cleanText(string $key, int $maxLen = 2000): string {
+    $val = (string)($_POST[$key] ?? '');
+    $val = str_replace(["\r\n", "\r"], "\n", $val);
+    $val = str_replace("\0", '', $val);
+    $val = trim(strip_tags($val));
+    return mb_substr($val, 0, $maxLen, 'UTF-8');
+}
+
+/**
+ * Échappe une chaîne pour affichage sécurisé dans un email HTML
+ */
+function h(string $val): string {
+    return htmlspecialchars($val, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
 $uploadedFiles = [];
@@ -162,7 +222,7 @@ $allowedMimes = [
 ];
 
 /**
- * Valide et enregistre un fichier uploadé dans le dossier privé
+ * Valide et enregistre un fichier uploadé dans le dossier privé hors web
  */
 function handleUpload(
     string $field,
@@ -193,11 +253,10 @@ function handleUpload(
     $realMime = finfo_file($finfo, $file['tmp_name']);
     finfo_close($finfo);
 
-    $origName = $file['name'] ?? 'document';
+    $origName = cleanHeader((string)($file['name'] ?? 'document'), 150);
     $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
 
     if (!in_array($realMime, array_values($allowedMimes), true)) {
-        // Tolérance pour .eml (preuvé de contact) si formulaire referral
         if ($field === 'consent_evidence' && ($ext === 'eml' || $realMime === 'message/rfc822' || $realMime === 'text/plain')) {
             $ext = 'eml';
         } else {
@@ -234,36 +293,36 @@ $uniqueCode = strtoupper(substr(bin2hex(random_bytes(4)), 0, 6));
 $receiptId = "EMS-{$dateFormatted}-{$uniqueCode}";
 $record = [];
 $emailSubject = '';
-$emailBody = '';
+$emailBodyHtml = '';
+$emailBodyText = '';
 $partnerEmail = '';
 $partnerName = '';
 
 try {
     if ($formType === 'registration') {
         // ── Formulaire « Devenir apporteur » ────────────────────────────────
-        $partnerName     = clean('partner_name', 160);
-        $partnerEmail    = filter_var(clean('email', 254), FILTER_VALIDATE_EMAIL) ?: '';
-        $phone           = clean('phone', 30);
-        $address         = clean('address', 400);
-        $company         = clean('company', 200);
-        $legalForm       = clean('legal_form', 100);
-        $siret           = clean('siret', 14);
-        $partnerSigner   = clean('partner_signer', 160);
-        $vatRegime       = clean('vat_regime', 50);
-        $vatEffectiveAt  = clean('vat_effective_at', 20);
-        $vatRate         = clean('vat_rate', 10);
-        $vatNumber       = clean('vat_number', 40);
-        $vatOther        = clean('vat_other', 1000);
-        $profLink        = clean('professional_link', 10);
-        $profession      = clean('profession', 160);
-        $employer        = clean('employer', 200);
-        $notes           = clean('notes', 2000);
+        $partnerName     = cleanHeader((string)($_POST['partner_name'] ?? ''), 160);
+        $partnerEmail    = cleanEmail('email');
+        $phone           = cleanHeader((string)($_POST['phone'] ?? ''), 30);
+        $address         = cleanHeader((string)($_POST['address'] ?? ''), 400);
+        $company         = cleanHeader((string)($_POST['company'] ?? ''), 200);
+        $legalForm       = cleanHeader((string)($_POST['legal_form'] ?? ''), 100);
+        $siret           = cleanHeader((string)($_POST['siret'] ?? ''), 14);
+        $partnerSigner   = cleanHeader((string)($_POST['partner_signer'] ?? ''), 160);
+        $vatRegime       = cleanHeader((string)($_POST['vat_regime'] ?? ''), 50);
+        $vatEffectiveAt  = cleanHeader((string)($_POST['vat_effective_at'] ?? ''), 20);
+        $vatRate         = cleanHeader((string)($_POST['vat_rate'] ?? ''), 10);
+        $vatNumber       = cleanHeader((string)($_POST['vat_number'] ?? ''), 40);
+        $vatOther        = cleanText('vat_other', 1000);
+        $profLink        = cleanHeader((string)($_POST['professional_link'] ?? ''), 10);
+        $profession      = cleanHeader((string)($_POST['profession'] ?? ''), 160);
+        $employer        = cleanHeader((string)($_POST['employer'] ?? ''), 200);
+        $notes           = cleanText('notes', 2000);
         $contractRead    = !empty($_POST['contract_read']);
-        $checksCompleted = clean('checks_completed', 10);
+        $checksCompleted = cleanHeader((string)($_POST['checks_completed'] ?? ''), 10);
 
-        // Validations obligatoires
         if ($partnerName === '' || $partnerEmail === '' || $phone === '' || $address === '') {
-            throw new InvalidArgumentException("Veuillez renseigner vos coordonnées complètes (nom, email, téléphone, adresse).");
+            throw new InvalidArgumentException("Veuillez renseigner vos coordonnées complètes (nom, email valide, téléphone, adresse).");
         }
         if ($company === '' || $legalForm === '' || $partnerSigner === '') {
             throw new InvalidArgumentException("Veuillez renseigner les informations de l'entreprise (raison sociale, forme juridique, signataire).");
@@ -301,8 +360,8 @@ try {
         $record = [
             'type'              => 'registration',
             'receipt_id'        => $receiptId,
-            'submission_id'     => clean('submission_id', 100),
-            'model_version'     => clean('model_version', 10),
+            'submission_id'     => cleanHeader((string)($_POST['submission_id'] ?? ''), 100),
+            'model_version'     => cleanHeader((string)($_POST['model_version'] ?? ''), 10),
             'created_at'        => date('c'),
             'ip'                => $clientIp,
             'partner_name'      => $partnerName,
@@ -325,62 +384,83 @@ try {
             'documents'         => $uploadedFiles,
         ];
 
-        $emailSubject = "[Apporteur EMS] Nouvelle candidature d'apporteur — {$company} ({$receiptId})";
-        $emailBody = "Nouvelle demande de candidature au Programme Apporteurs EMS\n";
-        $emailBody .= "========================================================\n\n";
-        $emailBody .= "Référence dossier : {$receiptId}\n";
-        $emailBody .= "Date              : " . date('d/m/Y H:i:s') . "\n";
-        $emailBody .= "Entreprise        : {$company} ({$legalForm})\n";
-        $emailBody .= "SIRET             : {$siret}\n";
-        $emailBody .= "Contact           : {$partnerName}\n";
-        $emailBody .= "Signataire        : {$partnerSigner}\n";
-        $emailBody .= "Email             : {$partnerEmail}\n";
-        $emailBody .= "Téléphone         : {$phone}\n";
-        $emailBody .= "Adresse           : {$address}\n";
-        $emailBody .= "Régime TVA        : {$vatRegime}\n";
+        $emailSubject = cleanHeader("[Apporteur EMS] Nouvelle candidature — {$company} ({$receiptId})");
+
+        // Construction version HTML (tous champs échappés avec h())
+        $emailBodyHtml = '<h2>Nouvelle demande de candidature au Programme Apporteurs EMS</h2>';
+        $emailBodyHtml .= '<p><strong>Référence dossier :</strong> ' . h($receiptId) . '<br>';
+        $emailBodyHtml .= '<strong>Date :</strong> ' . date('d/m/Y H:i:s') . '</p>';
+        $emailBodyHtml .= '<hr><h3>Identité professionnelle</h3>';
+        $emailBodyHtml .= '<ul>';
+        $emailBodyHtml .= '<li><strong>Entreprise :</strong> ' . h($company) . ' (' . h($legalForm) . ')</li>';
+        $emailBodyHtml .= '<li><strong>SIRET :</strong> ' . h($siret) . '</li>';
+        $emailBodyHtml .= '<li><strong>Contact :</strong> ' . h($partnerName) . '</li>';
+        $emailBodyHtml .= '<li><strong>Signataire :</strong> ' . h($partnerSigner) . '</li>';
+        $emailBodyHtml .= '<li><strong>Email :</strong> ' . h($partnerEmail) . '</li>';
+        $emailBodyHtml .= '<li><strong>Téléphone :</strong> ' . h($phone) . '</li>';
+        $emailBodyHtml .= '<li><strong>Adresse :</strong> ' . h($address) . '</li>';
+        $emailBodyHtml .= '<li><strong>Régime TVA :</strong> ' . h($vatRegime) . '</li>';
         if ($vatRegime === 'TVA facturée') {
-            $emailBody .= "  -> Taux : {$vatRate} % | N° TVA : {$vatNumber}\n";
+            $emailBodyHtml .= '<li><strong>Taux :</strong> ' . h($vatRate) . '% | <strong>N° TVA :</strong> ' . h($vatNumber) . '</li>';
         } elseif ($vatRegime === 'Autre') {
-            $emailBody .= "  -> Précision : {$vatOther}\n";
+            $emailBodyHtml .= '<li><strong>Précision TVA :</strong> ' . nl2br(h($vatOther)) . '</li>';
         }
-        $emailBody .= "Lien professionnel: {$profLink} (Métier : {$profession}" . ($employer ? " / Employeur : {$employer}" : "") . ")\n\n";
+        $emailBodyHtml .= '<li><strong>Lien professionnel :</strong> ' . h($profLink) . ' (' . h($profession) . ($employer ? ' / ' . h($employer) : '') . ')</li>';
+        $emailBodyHtml .= '</ul>';
         if ($notes !== '') {
-            $emailBody .= "Notes apporteur   :\n{$notes}\n\n";
+            $emailBodyHtml .= '<h3>Précisions apporteur</h3><p>' . nl2br(h($notes)) . '</p>';
         }
-        $emailBody .= "Pièces justificatives jointes (stockées sur le serveur privé) :\n";
+        $emailBodyHtml .= '<h3>Pièces justificatives (stockées hors web)</h3><ul>';
         foreach ($uploadedFiles as $k => $f) {
-            $emailBody .= " - [{$k}] {$f['original_name']} ({$f['size']} octets) -> {$f['safe_name']}\n";
+            $emailBodyHtml .= '<li>[' . h($k) . '] ' . h($f['original_name']) . ' (' . (int)$f['size'] . ' octets) &rarr; ' . h($f['safe_name']) . '</li>';
         }
-        $emailBody .= "\nNote de sécurité : Les pièces sensibles ne sont pas envoyées par email pour des raisons de confidentialité RGPD. Elles sont archivées dans le dossier sécurisé du compte o2switch.\n";
+        $emailBodyHtml .= '</ul>';
+        $emailBodyHtml .= '<p><em>Note : les pièces ne sont pas jointes par email pour des raisons de conformité RGPD. Elles sont disponibles dans le stockage privé du serveur.</em></p>';
+
+        // Version texte brut
+        $emailBodyText = "Nouvelle demande de candidature au Programme Apporteurs EMS\n";
+        $emailBodyText .= "========================================================\n\n";
+        $emailBodyText .= "Référence : {$receiptId}\n";
+        $emailBodyText .= "Date      : " . date('d/m/Y H:i:s') . "\n";
+        $emailBodyText .= "Entreprise: {$company} ({$legalForm})\n";
+        $emailBodyText .= "SIRET     : {$siret}\n";
+        $emailBodyText .= "Contact   : {$partnerName}\n";
+        $emailBodyText .= "Email     : {$partnerEmail}\n";
+        $emailBodyText .= "Téléphone : {$phone}\n";
+        $emailBodyText .= "Adresse   : {$address}\n";
+        $emailBodyText .= "Régime TVA: {$vatRegime}\n";
+        if ($notes !== '') {
+            $emailBodyText .= "\nPrécisions :\n{$notes}\n";
+        }
 
     } else {
         // ── Formulaire « Recommander un client » ────────────────────────────
-        $partnerName     = clean('partner_name', 160);
-        $partnerSiret    = clean('partner_siret', 14);
-        $partnerEmail    = filter_var(clean('partner_email', 254), FILTER_VALIDATE_EMAIL) ?: '';
-        $partnerPhone    = clean('partner_phone', 30);
-        $contractRef     = clean('contract_reference', 100);
-        $clientName      = clean('client_name', 200);
-        $clientPhone     = clean('client_phone', 30);
-        $clientEmail     = clean('client_email', 254);
-        $siteType        = clean('site_type', 50);
-        $address         = clean('address', 400);
-        $postalCode      = clean('postal_code', 5);
-        $city            = clean('city', 160);
-        $plannedUnits    = clean('planned_units', 10);
-        $vehicle         = clean('vehicle', 160);
-        $need            = clean('need', 2000);
-        $contactMethod   = clean('contact_method', 30);
-        $consentDate     = clean('consent_date', 20);
-        $consentEvidenceType = clean('consent_evidence_type', 30);
+        $partnerName     = cleanHeader((string)($_POST['partner_name'] ?? ''), 160);
+        $partnerSiret    = cleanHeader((string)($_POST['partner_siret'] ?? ''), 14);
+        $partnerEmail    = cleanEmail('partner_email');
+        $partnerPhone    = cleanHeader((string)($_POST['partner_phone'] ?? ''), 30);
+        $contractRef     = cleanHeader((string)($_POST['contract_reference'] ?? ''), 100);
+        $clientName      = cleanHeader((string)($_POST['client_name'] ?? ''), 200);
+        $clientPhone     = cleanHeader((string)($_POST['client_phone'] ?? ''), 30);
+        $clientEmail     = cleanEmail('client_email');
+        $siteType        = cleanHeader((string)($_POST['site_type'] ?? ''), 50);
+        $address         = cleanHeader((string)($_POST['address'] ?? ''), 400);
+        $postalCode      = cleanHeader((string)($_POST['postal_code'] ?? ''), 5);
+        $city            = cleanHeader((string)($_POST['city'] ?? ''), 160);
+        $plannedUnits    = cleanHeader((string)($_POST['planned_units'] ?? ''), 10);
+        $vehicle         = cleanHeader((string)($_POST['vehicle'] ?? ''), 160);
+        $need            = cleanText('need', 2000);
+        $contactMethod   = cleanHeader((string)($_POST['contact_method'] ?? ''), 30);
+        $consentDate     = cleanHeader((string)($_POST['consent_date'] ?? ''), 20);
+        $consentEvidenceType = cleanHeader((string)($_POST['consent_evidence_type'] ?? ''), 30);
         $consent         = !empty($_POST['consent']);
         $commissionDisclosed = !empty($_POST['commission_disclosed']);
-        $profLink        = clean('professional_link', 10);
+        $profLink        = cleanHeader((string)($_POST['professional_link'] ?? ''), 10);
         $infoConfirmed   = !empty($_POST['information_confirmed']);
-        $checksCompleted = clean('checks_completed', 10);
+        $checksCompleted = cleanHeader((string)($_POST['checks_completed'] ?? ''), 10);
 
         if ($partnerName === '' || $partnerEmail === '') {
-            throw new InvalidArgumentException("Veuillez renseigner votre identité d'apporteur (nom et email).");
+            throw new InvalidArgumentException("Veuillez renseigner votre identité d'apporteur (nom et email valide).");
         }
         if (!preg_match('/^[0-9]{14}$/', $partnerSiret)) {
             throw new InvalidArgumentException("Votre SIRET d'apporteur doit comporter 14 chiffres.");
@@ -433,8 +513,8 @@ try {
         $record = [
             'type'                  => 'referral',
             'receipt_id'            => $receiptId,
-            'submission_id'         => clean('submission_id', 100),
-            'model_version'         => clean('model_version', 10),
+            'submission_id'         => cleanHeader((string)($_POST['submission_id'] ?? ''), 100),
+            'model_version'         => cleanHeader((string)($_POST['model_version'] ?? ''), 10),
             'created_at'            => date('c'),
             'ip'                    => $clientIp,
             'partner_name'          => $partnerName,
@@ -461,30 +541,46 @@ try {
         ];
 
         $zoneAlert = $isWithinZone ? "OUI ({$dept})" : "HORS ZONE ({$dept}) — À examiner";
-        $emailSubject = "[Recommandation EMS] Nouveau projet client — {$clientName} ({$receiptId})";
-        $emailBody = "Nouvelle présentation de projet client par un apporteur d'affaires EMS\n";
-        $emailBody .= "===================================================================\n\n";
-        $emailBody .= "Référence dossier : {$receiptId}\n";
-        $emailBody .= "Date              : " . date('d/m/Y H:i:s') . "\n";
-        $emailBody .= "Apporteur         : {$partnerName} (SIRET : {$partnerSiret} / Réf contrat : " . ($contractRef ?: 'Non renseignée') . ")\n";
-        $emailBody .= "Email apporteur   : {$partnerEmail}\n";
-        $emailBody .= "Tél apporteur     : " . ($partnerPhone ?: 'Non renseigné') . "\n\n";
-        $emailBody .= "Client présenté   : {$clientName}\n";
-        $emailBody .= "Téléphone client  : " . ($clientPhone ?: 'Non renseigné') . "\n";
-        $emailBody .= "Email client      : " . ($clientEmail ?: 'Non renseigné') . "\n";
-        $emailBody .= "Type de site      : {$siteType}\n";
-        $emailBody .= "Lieu du chantier  : {$address}, {$postalCode} {$city}\n";
-        $emailBody .= "Zone contractuelle: {$zoneAlert}\n";
-        $emailBody .= "Unités prévues    : " . ($plannedUnits ?: '1') . " | Véhicule : " . ($vehicle ?: 'Non précisé') . "\n";
-        $emailBody .= "Besoin exprimé    :\n{$need}\n\n";
-        $emailBody .= "Moyen de contact  : {$contactMethod} (Accord client du {$consentDate}, preuve : {$consentEvidenceType})\n";
-        $emailBody .= "Lien professionnel: {$profLink}\n";
+        $emailSubject = cleanHeader("[Recommandation EMS] Nouveau projet client — {$clientName} ({$receiptId})");
+
+        // Version HTML
+        $emailBodyHtml = '<h2>Nouvelle présentation de projet client par un apporteur d\'affaires EMS</h2>';
+        $emailBodyHtml .= '<p><strong>Référence dossier :</strong> ' . h($receiptId) . '<br>';
+        $emailBodyHtml .= '<strong>Date :</strong> ' . date('d/m/Y H:i:s') . '</p>';
+        $emailBodyHtml .= '<hr><h3>Apporteur</h3><ul>';
+        $emailBodyHtml .= '<li><strong>Nom :</strong> ' . h($partnerName) . '</li>';
+        $emailBodyHtml .= '<li><strong>SIRET :</strong> ' . h($partnerSiret) . ' | <strong>Réf contrat :</strong> ' . h($contractRef ?: 'Non renseignée') . '</li>';
+        $emailBodyHtml .= '<li><strong>Email :</strong> ' . h($partnerEmail) . ' | <strong>Tél :</strong> ' . h($partnerPhone ?: 'Non renseigné') . '</li>';
+        $emailBodyHtml .= '</ul>';
+        $emailBodyHtml .= '<h3>Projet Client</h3><ul>';
+        $emailBodyHtml .= '<li><strong>Client :</strong> ' . h($clientName) . '</li>';
+        $emailBodyHtml .= '<li><strong>Téléphone client :</strong> ' . h($clientPhone ?: 'Non renseigné') . '</li>';
+        $emailBodyHtml .= '<li><strong>Email client :</strong> ' . h($clientEmail ?: 'Non renseigné') . '</li>';
+        $emailBodyHtml .= '<li><strong>Type de site :</strong> ' . h($siteType) . '</li>';
+        $emailBodyHtml .= '<li><strong>Lieu du chantier :</strong> ' . h($address) . ', ' . h($postalCode) . ' ' . h($city) . '</li>';
+        $emailBodyHtml .= '<li><strong>Zone contractuelle :</strong> ' . h($zoneAlert) . '</li>';
+        $emailBodyHtml .= '<li><strong>Unités prévues :</strong> ' . h($plannedUnits ?: '1') . ' | <strong>Véhicule :</strong> ' . h($vehicle ?: 'Non précisé') . '</li>';
+        $emailBodyHtml .= '<li><strong>Moyen de contact souhaité :</strong> ' . h($contactMethod) . ' (Accord du ' . h($consentDate) . ', preuve : ' . h($consentEvidenceType) . ')</li>';
+        $emailBodyHtml .= '<li><strong>Lien professionnel :</strong> ' . h($profLink) . '</li>';
+        $emailBodyHtml .= '</ul>';
+        $emailBodyHtml .= '<h3>Besoin exprimé</h3><p>' . nl2br(h($need)) . '</p>';
         if (!empty($uploadedFiles)) {
-            $emailBody .= "\nPièces jointes stockées sur le serveur privé :\n";
+            $emailBodyHtml .= '<h3>Pièces jointes stockées sur le serveur privé</h3><ul>';
             foreach ($uploadedFiles as $k => $f) {
-                $emailBody .= " - [{$k}] {$f['original_name']} -> {$f['safe_name']}\n";
+                $emailBodyHtml .= '<li>[' . h($k) . '] ' . h($f['original_name']) . ' &rarr; ' . h($f['safe_name']) . '</li>';
             }
+            $emailBodyHtml .= '</ul>';
         }
+
+        // Version texte brut
+        $emailBodyText = "Nouvelle présentation de projet client par un apporteur d'affaires EMS\n";
+        $emailBodyText .= "===================================================================\n\n";
+        $emailBodyText .= "Référence : {$receiptId}\n";
+        $emailBodyText .= "Apporteur : {$partnerName} (SIRET : {$partnerSiret})\n";
+        $emailBodyText .= "Client    : {$clientName} ({$postalCode} {$city})\n";
+        $emailBodyText .= "Contact   : {$contactMethod}\n";
+        $emailBodyText .= "Zone      : {$zoneAlert}\n\n";
+        $emailBodyText .= "Besoin :\n{$need}\n";
     }
 
     // ── 9. Sauvegarde du récapitulatif JSON local ────────────────────────────
@@ -495,85 +591,91 @@ try {
     $logFile = $logDir . '/' . date('Y-m') . '-submissions.jsonl';
     @file_put_contents($logFile, json_encode($record, JSON_UNESCAPED_UNICODE) . "\n", FILE_APPEND | LOCK_EX);
 
-    // ── 10. Envoi de l'email via SMTP Brevo (PHPMailer) ou mail() ────────────
-    $mailSent = false;
-    $adminTo = $config['notification_email'] ?? 'contact@energeticmaintenances.fr';
-    $fromMail = $config['mail_from'] ?? 'contact@energeticmaintenances.fr';
-    $fromName = $config['mail_from_name'] ?? 'EMS Programme Apporteurs';
+    // ── 10. Envoi de l'email via SMTP PHPMailer (AUCUN repli silencieux) ─────
+    $adminTo = cleanHeader((string)($config['notification_email'] ?? 'contact@energeticmaintenances.fr'));
+    $fromMail = cleanHeader((string)($config['mail_from'] ?? 'contact@energeticmaintenances.fr'));
+    $fromName = cleanHeader((string)($config['mail_from_name'] ?? 'EMS Programme Apporteurs'));
 
-    // Vérifier si l'autoloader Composer existe pour charger PHPMailer
-    $composerAutoload = $config['composer_autoload'] ?? '';
-    if ($composerAutoload !== '' && file_exists($composerAutoload)) {
-        require_once $composerAutoload;
+    $smtpEnabled = !empty($config['smtp']['enabled']);
+    $smtpPassword = (string)($config['smtp']['password'] ?? '');
+
+    // Journalisation d'erreur dédiée
+    $errorLogFile = $logDir . '/smtp_errors.log';
+
+    if (!$smtpEnabled || $smtpPassword === '') {
+        $msg = "[EMS Apporteurs] Configuration SMTP manquante ou désactivée sur le serveur. Impossible d'expédier le dossier {$receiptId}.";
+        error_log($msg);
+        @file_put_contents($errorLogFile, '[' . date('c') . '] ' . $msg . "\n", FILE_APPEND | LOCK_EX);
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'error'   => "Le service d'envoi d'e-mail n'est pas encore configuré sur le serveur (identifiants SMTP requis). Veuillez contacter EMS directement.",
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
     }
 
-    $smtpEnabled = !empty($config['smtp']['enabled']) && !empty($config['smtp']['password']);
+    try {
+        $mailer = new PHPMailer(true);
+        $mailer->isSMTP();
+        $mailer->Host       = cleanHeader((string)($config['smtp']['host'] ?? 'smtp-relay.brevo.com'));
+        $mailer->SMTPAuth   = true;
+        $mailer->Username   = cleanHeader((string)($config['smtp']['username'] ?? ''));
+        $mailer->Password   = $smtpPassword;
+        $mailer->SMTPSecure = ($config['smtp']['encryption'] ?? 'tls') === 'ssl'
+            ? PHPMailer::ENCRYPTION_SMTPS
+            : PHPMailer::ENCRYPTION_STARTTLS;
+        $mailer->Port       = (int)($config['smtp']['port'] ?? 587);
+        $mailer->CharSet    = 'UTF-8';
+        $mailer->Timeout    = 15;
 
-    if ($smtpEnabled && class_exists('PHPMailer\PHPMailer\PHPMailer')) {
-        try {
-            $mailer = new \PHPMailer\PHPMailer\PHPMailer(true);
-            $mailer->isSMTP();
-            $mailer->Host       = $config['smtp']['host'] ?? 'smtp-relay.brevo.com';
-            $mailer->SMTPAuth   = true;
-            $mailer->Username   = $config['smtp']['username'] ?? '';
-            $mailer->Password   = $config['smtp']['password'] ?? '';
-            $mailer->SMTPSecure = ($config['smtp']['encryption'] ?? 'tls') === 'ssl'
-                ? \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS
-                : \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-            $mailer->Port       = (int)($config['smtp']['port'] ?? 587);
-            $mailer->CharSet    = 'UTF-8';
+        $mailer->setFrom($fromMail, $fromName);
+        $mailer->addAddress($adminTo);
+        if ($partnerEmail !== '') {
+            $mailer->addReplyTo($partnerEmail, $partnerName);
+        }
 
-            $mailer->setFrom($fromMail, $fromName);
-            $mailer->addAddress($adminTo);
-            if ($partnerEmail !== '') {
-                $mailer->addReplyTo($partnerEmail, $partnerName);
-            }
-            $mailer->Subject = $emailSubject;
-            $mailer->Body    = $emailBody;
+        $mailer->isHTML(true);
+        $mailer->Subject = $emailSubject;
+        $mailer->Body    = $emailBodyHtml;
+        $mailer->AltBody = $emailBodyText;
 
-            $mailer->send();
-            $mailSent = true;
+        $mailer->send();
 
-            // Envoi d'un email de confirmation au partenaire
-            if ($partnerEmail !== '') {
+        // Envoi d'un email de confirmation au partenaire
+        if ($partnerEmail !== '') {
+            try {
                 $confirmMailer = clone $mailer;
                 $confirmMailer->clearAddresses();
                 $confirmMailer->clearReplyTos();
                 $confirmMailer->addAddress($partnerEmail, $partnerName);
                 $confirmMailer->addReplyTo($adminTo, 'EMS Service Apporteurs');
-                $confirmMailer->Subject = "[EMS] Accusé de réception de votre demande — {$receiptId}";
-                $confirmMailer->Body    = "Bonjour {$partnerName},\n\nNous confirmons la bonne réception de votre demande auprès d'Energetic Maintenances Services.\n\nRéférence de votre dossier : {$receiptId}\n\nNotre équipe étudie vos éléments et reviendra vers vous par écrit sous 7 jours calendaires conformément aux modalités du contrat.\n\nCordialement,\nL'équipe Energetic Maintenances Services\nhttps://energeticmaintenances.fr\n";
-                @$confirmMailer->send();
+                $confirmMailer->Subject = cleanHeader("[EMS] Accusé de réception de votre demande — {$receiptId}");
+                $confirmMailer->isHTML(true);
+                $confirmMailer->Body    = "<p>Bonjour " . h($partnerName) . ",</p>"
+                    . "<p>Nous confirmons la bonne réception de votre demande auprès d'<strong>Energetic Maintenances Services</strong>.</p>"
+                    . "<p><strong>Référence de votre dossier :</strong> " . h($receiptId) . "</p>"
+                    . "<p>Notre équipe étudie vos éléments et reviendra vers vous par écrit sous 7 jours calendaires conformément aux modalités du contrat.</p>"
+                    . "<p>Cordialement,<br><strong>L'équipe Energetic Maintenances Services</strong><br><a href=\"https://energeticmaintenances.fr\">energeticmaintenances.fr</a></p>";
+                $confirmMailer->AltBody = "Bonjour {$partnerName},\n\nNous confirmons la bonne réception de votre demande auprès d'Energetic Maintenances Services.\nRéférence : {$receiptId}\n\nNous reviendrons vers vous par écrit sous 7 jours calendaires.\n\nEMS — energeticmaintenances.fr\n";
+                $confirmMailer->send();
+            } catch (\Throwable $confirmEx) {
+                error_log("[EMS Apporteurs] Avertissement: échec de l'accusé de réception partenaire : " . $confirmEx->getMessage());
             }
-        } catch (\Throwable $e) {
-            error_log("[EMS Apporteurs] Erreur SMTP PHPMailer : " . $e->getMessage());
         }
+    } catch (\Throwable $smtpEx) {
+        $errorMsg = "[EMS Apporteurs] Échec SMTP fatal pour le dossier {$receiptId} : " . $smtpEx->getMessage();
+        error_log($errorMsg);
+        @file_put_contents($errorLogFile, '[' . date('c') . '] ' . $errorMsg . "\n", FILE_APPEND | LOCK_EX);
+
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'error'   => "L'envoi sécurisé de votre notification a échoué via le serveur SMTP. Votre dossier n'a pas été transmis. Merci de contacter directement EMS.",
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
     }
 
-    // Fallback natif mail() si SMTP non configuré ou échec PHPMailer
-    if (!$mailSent) {
-        $headers  = "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-        $headers .= "Content-Transfer-Encoding: 8bit\r\n";
-        $headers .= "From: {$fromName} <{$fromMail}>\r\n";
-        if ($partnerEmail !== '') {
-            $headers .= "Reply-To: {$partnerName} <{$partnerEmail}>\r\n";
-        }
-        $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-
-        $encodedSubject = '=?UTF-8?B?' . base64_encode($emailSubject) . '?=';
-        $mailSent = @mail($adminTo, $encodedSubject, $emailBody, $headers);
-
-        // Accusé partenaire
-        if ($mailSent && $partnerEmail !== '') {
-            $confirmSubj = '=?UTF-8?B?' . base64_encode("[EMS] Accusé de réception — {$receiptId}") . '?=';
-            $confirmBody = "Bonjour {$partnerName},\n\nNous confirmons la bonne réception de votre demande auprès d'EMS (Réf : {$receiptId}).\nNous reviendrons vers vous sous 7 jours calendaires.\n\nEMS — energeticmaintenances.fr\n";
-            $confirmHeaders = "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nFrom: {$fromName} <{$fromMail}>\r\nReply-To: {$adminTo}\r\n";
-            @mail($partnerEmail, $confirmSubj, $confirmBody, $confirmHeaders);
-        }
-    }
-
-    // ── 11. Réponse JSON finale ──────────────────────────────────────────────
+    // ── 11. Réponse JSON de succès ───────────────────────────────────────────
     echo json_encode([
         'success'    => true,
         'receipt_id' => $receiptId,
@@ -588,7 +690,7 @@ try {
     ], JSON_UNESCAPED_UNICODE);
     exit;
 } catch (\Throwable $e) {
-    error_log("[EMS Apporteurs] Erreur serveur : " . $e->getMessage());
+    error_log("[EMS Apporteurs] Erreur serveur générale : " . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,
