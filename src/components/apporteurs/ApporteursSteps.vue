@@ -13,7 +13,7 @@
         <div
           v-for="step in steps"
           :key="step.index"
-          class="card reveal"
+          class="card"
         >
           <div class="flex items-center gap-3 mb-4">
             <span class="font-display font-extrabold text-2xl text-ems-green/30" aria-hidden="true">
@@ -34,10 +34,6 @@
 </template>
 
 <script setup>
-import { useReveal } from '@/composables/useReveal.js'
-
-useReveal()
-
 const steps = [
   {
     index: '01',

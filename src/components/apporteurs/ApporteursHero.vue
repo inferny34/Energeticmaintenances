@@ -78,11 +78,11 @@
           </div>
 
           <p class="font-body text-sm text-ems-muted">
-            Puis <strong class="text-white">130&nbsp;€</strong> à partir de la 11<sup>e</sup> borne
+            Puis <strong class="text-white">130&nbsp;€</strong> à partir de la 11ᵉ borne
           </p>
 
           <p class="font-body text-xs text-ems-muted/70 leading-relaxed">
-            100&nbsp;€ pour chacune des 10 premières bornes éligibles, puis 130&nbsp;€ à partir de la 11<sup>e</sup>.
+            100&nbsp;€ pour chacune des 10 premières bornes éligibles, puis 130&nbsp;€ à partir de la 11ᵉ.
             Forfait total, TVA comprise lorsqu'elle s'applique.
           </p>
 
@@ -111,8 +111,6 @@
 </template>
 
 <script setup>
-import { useReveal } from '@/composables/useReveal.js'
-
 defineEmits(['open-contract'])
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -121,6 +119,4 @@ function scrollTo(id) {
   const el = document.getElementById(id)
   if (el) el.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' })
 }
-
-useReveal()
 </script>

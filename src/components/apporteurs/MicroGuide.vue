@@ -17,7 +17,7 @@
         <article
           v-for="step in steps"
           :key="step.num"
-          class="card reveal space-y-4"
+          class="card space-y-4"
         >
           <span
             class="inline-block font-display font-extrabold text-3xl text-ems-green/20"
@@ -31,7 +31,7 @@
             rel="noopener noreferrer"
             class="inline-flex items-center gap-1 font-body text-sm text-ems-green hover:text-white transition-colors"
           >
-            {{ step.linkLabel }} <span aria-hidden="true">↗</span>
+            {{ step.linkLabel }}
           </a>
         </article>
       </div>
@@ -74,7 +74,7 @@
             rel="noopener noreferrer"
             class="font-body text-sm text-ems-muted hover:text-ems-green transition-colors"
           >
-            {{ link.label }} <span aria-hidden="true">↗</span>
+            {{ link.label }}
           </a>
         </div>
         <p class="mt-4 font-body text-xs text-ems-muted/60">
@@ -108,40 +108,40 @@ const steps = [
     title: 'Une demande, en ligne',
     body: "Préparez vos justificatifs puis déclarez votre activité réelle de mise en relation sur le Guichet unique. Vous pouvez faire la démarche vous-même. L'immatriculation est gratuite dans la plupart des cas\u00a0; l'attribution du SIRET intervient après traitement du dossier.",
     link: 'https://formalites.entreprises.gouv.fr/',
-    linkLabel: 'Déclarer mon activité au Guichet unique',
+    linkLabel: 'Déclarer mon activité au Guichet unique ↗',
   },
   {
     num: '02',
     title: 'Votre SIRET, puis le contrat',
     body: "Une fois votre SIRET obtenu, transmettez vos informations à EMS. Nous vous guidons sur les pièces à fournir pour préparer votre contrat. Vous avez déjà une entreprise\u00a0? Vérifiez simplement que cette activité est bien déclarée.",
     link: 'https://annuaire-entreprises.data.gouv.fr/',
-    linkLabel: 'Retrouver mon SIRET et mon justificatif',
+    linkLabel: 'Retrouver mon SIRET et mon justificatif ↗',
   },
   {
     num: '03',
     title: 'Des déclarations régulières',
     body: "Vous facturez à EMS les commissions dues, puis déclarez le chiffre d'affaires encaissé à l'Urssaf chaque mois ou trimestre. Les cotisations micro-sociales sont calculées sur ce chiffre d'affaires\u00a0: vous ne payez pas sur des commissions que vous n'avez pas encore encaissées.",
     link: 'https://www.autoentrepreneur.urssaf.fr/portail/accueil/une-question/toutes-les-fiches-pratiques/declarer-et-payer-mes-cotisation.html',
-    linkLabel: 'Comprendre mes déclarations Urssaf',
+    linkLabel: 'Comprendre mes déclarations Urssaf ↗',
   },
 ]
 
 const officialLinks = [
   {
     href: 'https://entreprendre.service-public.gouv.fr/vosdroits/F36746',
-    label: 'Comprendre les démarches de création',
+    label: 'Comprendre les démarches de création ↗',
   },
   {
     href: 'https://formalites.entreprises.gouv.fr/',
-    label: 'Déclarer votre activité au Guichet unique',
+    label: 'Déclarer votre activité au Guichet unique ↗',
   },
   {
     href: 'https://www.autoentrepreneur.urssaf.fr/portail/accueil/sinformer-sur-le-statut/lessentiel-du-statut.html',
-    label: 'Comprendre les déclarations et cotisations Urssaf',
+    label: 'Comprendre les déclarations et cotisations Urssaf ↗',
   },
   {
     href: 'https://entreprendre.service-public.gouv.fr/vosdroits/F36232',
-    label: 'Vérifier les règles de cotisations sociales',
+    label: 'Vérifier les règles de cotisations sociales ↗',
   },
 ]
 </script>

@@ -9,11 +9,32 @@
       </h3>
       <p class="font-body text-sm text-ems-muted">Pour envoyer votre demande en une fois, préparez&nbsp;:</p>
       <ul class="space-y-3">
-        <li v-for="doc in requiredDocs" :key="doc.label" class="flex gap-3">
+        <li class="flex gap-3">
           <span class="text-ems-green flex-shrink-0 mt-0.5">•</span>
           <div>
-            <strong class="font-body text-sm text-white">{{ doc.label }}</strong>
-            <span class="block font-body text-xs text-ems-muted">{{ doc.desc }}</span>
+            <strong class="font-body text-sm text-white">Votre RIB</strong>
+            <span class="block font-body text-xs text-ems-muted">Au nom de l'apporteur professionnel.</span>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <span class="text-ems-green flex-shrink-0 mt-0.5">•</span>
+          <div>
+            <strong class="font-body text-sm text-white">Votre immatriculation</strong>
+            <span class="block font-body text-xs text-ems-muted">Kbis ou avis SIRENE, selon votre statut.</span>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <span class="text-ems-green flex-shrink-0 mt-0.5">•</span>
+          <div>
+            <strong class="font-body text-sm text-white">Votre document URSSAF</strong>
+            <span class="block font-body text-xs text-ems-muted">Attestation de vigilance ou document délivré à la création, selon le contrat.</span>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <span class="text-ems-green flex-shrink-0 mt-0.5">•</span>
+          <div>
+            <strong class="font-body text-sm text-white">Votre régime de TVA</strong>
+            <span class="block font-body text-xs text-ems-muted">Justificatif fiscal, même en franchise en base.</span>
           </div>
         </li>
       </ul>
@@ -376,7 +397,7 @@
                       target="_blank"
                       rel="noopener noreferrer"
                       class="block font-body text-xs text-ems-green hover:text-white transition-colors"
-                    >{{ link.label }} ↗</a>
+                    >{{ link.label }}</a>
                   </template>
                   <small v-if="help.note" class="block font-body text-xs text-ems-muted/60 leading-relaxed">
                     {{ help.note }}
@@ -392,22 +413,70 @@
           </details>
 
           <!-- 4 inputs fichier -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <label v-for="fileField in fileFields" :key="fileField.name" class="flex flex-col gap-1">
-              <span class="form-label">{{ fileField.label }}</span>
+          <div class="document-grid grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label class="flex flex-col gap-1">
+              <span class="form-label">RIB au nom de l'apporteur *</span>
               <input
                 type="file"
-                :name="fileField.name"
+                name="rib"
                 accept="application/pdf,image/png,image/jpeg"
                 required
-                :id="ids[fileField.idKey]"
+                :id="ids.rib"
                 class="font-body text-sm text-ems-muted file:mr-3 file:py-1.5 file:px-3
                        file:rounded file:border-0 file:bg-ems-green/10 file:text-ems-green
                        file:font-body file:text-xs file:cursor-pointer
                        hover:file:bg-ems-green/20 cursor-pointer"
                 @change="onFileChange"
               >
-              <small class="font-body text-xs text-ems-muted/60">{{ fileField.help }}</small>
+              <small class="document-help font-body text-xs text-ems-muted/60">Nom du titulaire lisible et identique à celui de l'apporteur.</small>
+            </label>
+            <label class="flex flex-col gap-1">
+              <span class="form-label">Justificatif d'immatriculation (Kbis / avis SIRENE) *</span>
+              <input
+                type="file"
+                name="registration_proof"
+                accept="application/pdf,image/png,image/jpeg"
+                required
+                :id="ids.registrationProof"
+                class="font-body text-sm text-ems-muted file:mr-3 file:py-1.5 file:px-3
+                       file:rounded file:border-0 file:bg-ems-green/10 file:text-ems-green
+                       file:font-body file:text-xs file:cursor-pointer
+                       hover:file:bg-ems-green/20 cursor-pointer"
+                @change="onFileChange"
+              >
+              <small class="document-help font-body text-xs text-ems-muted/60">Le document doit identifier votre entreprise et son SIRET.</small>
+            </label>
+            <label class="flex flex-col gap-1">
+              <span class="form-label">Attestation de vigilance URSSAF / document de création délivré par l'Urssaf *</span>
+              <input
+                type="file"
+                name="vigilance_proof"
+                accept="application/pdf,image/png,image/jpeg"
+                required
+                :id="ids.vigilanceProof"
+                class="font-body text-sm text-ems-muted file:mr-3 file:py-1.5 file:px-3
+                       file:rounded file:border-0 file:bg-ems-green/10 file:text-ems-green
+                       file:font-body file:text-xs file:cursor-pointer
+                       hover:file:bg-ems-green/20 cursor-pointer"
+                @change="onFileChange"
+              >
+              <small class="document-help font-body text-xs text-ems-muted/60">Joignez le document URSSAF adapté à votre situation, selon le contrat.</small>
+            </label>
+            <label class="flex flex-col gap-1">
+              <span class="form-label">Justificatif du régime de TVA, y compris en franchise en base *</span>
+              <input
+                type="file"
+                name="vat_proof"
+                accept="application/pdf,image/png,image/jpeg"
+                required
+                :id="ids.vatProof"
+                class="font-body text-sm text-ems-muted file:mr-3 file:py-1.5 file:px-3
+                       file:rounded file:border-0 file:bg-ems-green/10 file:text-ems-green
+                       file:font-body file:text-xs file:cursor-pointer
+                       hover:file:bg-ems-green/20 cursor-pointer"
+                @change="onFileChange"
+              >
+              <small class="document-help font-body text-xs text-ems-muted/60">Justificatif fiscal du régime et de sa date d'effet ; le numéro de TVA seul ne suffit pas.</small>
             </label>
           </div>
 
@@ -416,12 +485,14 @@
             :id="ids.docCounter"
             role="status"
             aria-live="polite"
-            class="font-body text-sm font-medium"
+            class="document-counter font-body text-sm font-medium"
             :class="fileCount === 4 ? 'text-ems-green' : 'text-ems-muted'"
           >
-            {{ fileCount === 4
-              ? '4 / 4 pièces jointes — EMS contrôlera les documents après réception.'
-              : `${fileCount} / 4 pièces jointes — ajoutez les quatre fichiers pour envoyer votre dossier.` }}
+            {{ fileCount === 0
+              ? '0 / 4 pièces jointes — ajoutez les quatre fichiers pour envoyer votre dossier.'
+              : (fileCount === 4
+                ? '4 / 4 pièces jointes — EMS contrôlera les documents après réception.'
+                : `${fileCount} / 4 pièces jointes — ajoutez les quatre fichiers pour envoyer votre dossier.`) }}
           </p>
         </div>
       </details>
@@ -691,7 +762,7 @@ const requiredDocs = [
 const fileFields = [
   { name: 'rib', idKey: 'rib', label: "RIB au nom de l'apporteur *", help: "Nom du titulaire lisible et identique à celui de l'apporteur." },
   { name: 'registration_proof', idKey: 'registrationProof', label: "Justificatif d'immatriculation (Kbis / avis SIRENE) *", help: "Le document doit identifier votre entreprise et son SIRET." },
-  { name: 'vigilance_proof', idKey: 'vigilanceProof', label: "Attestation de vigilance URSSAF / document de création *", help: "Joignez le document URSSAF adapté à votre situation, selon le contrat." },
+  { name: 'vigilance_proof', idKey: 'vigilanceProof', label: "Attestation de vigilance URSSAF / document de création délivré par l'Urssaf *", help: "Joignez le document URSSAF adapté à votre situation, selon le contrat." },
   { name: 'vat_proof', idKey: 'vatProof', label: "Justificatif du régime de TVA, y compris en franchise en base *", help: "Justificatif fiscal du régime et de sa date d'effet ; le numéro de TVA seul ne suffit pas." },
 ]
 
@@ -705,20 +776,20 @@ const docHelp = [
     title: "02 · Votre immatriculation",
     body: "Avec votre SIREN ou SIRET, téléchargez votre avis de situation SIRENE sur le site de l'Insee. Si vous disposez d'un extrait K ou Kbis, vous pouvez le récupérer sur MonIdenum si votre entreprise est éligible.",
     links: [
-      { href: "https://avis-situation-sirene.insee.fr/", label: "Obtenir mon avis SIRENE — Insee" },
-      { href: "https://monidenum.fr/", label: "Accéder à mon extrait K / Kbis" },
+      { href: "https://avis-situation-sirene.insee.fr/", label: "Obtenir mon avis SIRENE — Insee ↗" },
+      { href: "https://monidenum.fr/", label: "Accéder à mon extrait K / Kbis ↗" },
     ],
   },
   {
     title: "03 · Votre attestation Urssaf",
     body: "Connectez-vous à votre espace Urssaf et recherchez la rubrique « Attestations » ou « Documents et démarches ». Demandez l'attestation de vigilance, puis téléchargez le PDF.",
-    links: [{ href: "https://www.urssaf.fr/accueil/attestation-vigilance.html", label: "Suivre le mode d'emploi officiel Urssaf" }],
+    links: [{ href: "https://www.urssaf.fr/accueil/attestation-vigilance.html", label: "Suivre le mode d'emploi officiel Urssaf ↗" }],
     note: "Vous débutez ? Si l'attestation de vigilance n'est pas encore disponible, demandez à l'Urssaf le document provisoire adapté à votre création et joignez-le conformément au contrat. Un refus de délivrance n'est pas une attestation de vigilance.",
   },
   {
     title: "04 · Votre régime de TVA",
     body: "Retrouvez votre mémento fiscal à jour ou un courrier fiscal précisant votre régime. Si vous ne l'avez pas, demandez à votre service des impôts des entreprises (SIE), via la messagerie de votre espace professionnel, un justificatif du régime de TVA et de sa date d'effet, y compris en franchise en base.",
-    links: [{ href: "https://www.impots.gouv.fr/", label: "Accéder à impots.gouv.fr — espace professionnel" }],
+    links: [{ href: "https://www.impots.gouv.fr/", label: "Accéder à impots.gouv.fr — espace professionnel ↗" }],
     note: "Vous pouvez écrire : « Bonjour, merci de me transmettre un justificatif de mon régime actuel de TVA et de sa date d'effet pour l'entreprise [nom, SIRET]. » Le numéro de TVA seul ne suffit pas.",
   },
 ]

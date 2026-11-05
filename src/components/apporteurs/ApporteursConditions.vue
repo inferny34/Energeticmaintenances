@@ -90,11 +90,10 @@
               <span
                 v-for="zone in zones"
                 :key="zone.code"
-                class="inline-flex items-center gap-1.5 rounded-full bg-ems-green/10 border border-ems-green/20
+                class="chip inline-flex items-center gap-1.5 rounded-full bg-ems-green/10 border border-ems-green/20
                        px-3 py-1 font-body text-sm text-ems-text"
               >
-                <b class="font-bold text-ems-green">{{ zone.code }}</b>
-                {{ zone.label }}
+                <b class="font-bold text-ems-green">{{ zone.code }}</b> {{ zone.label }}
               </span>
             </div>
             <p class="font-body text-xs text-ems-muted/70 leading-relaxed">
@@ -120,7 +119,7 @@ const conditions = [
   {
     tag: '01 / La commission',
     title: '<strong>100&nbsp;€</strong> puis <strong>130&nbsp;€</strong>',
-    body: '100&nbsp;€ pour les 10 premières bornes éligibles, puis 130&nbsp;€ à partir de la 11e. TVA comprise si applicable.',
+    body: '100&nbsp;€ pour les 10 premières bornes éligibles, puis 130&nbsp;€ à partir de la 11ᵉ. TVA comprise si applicable.',
   },
   {
     tag: '02 / Votre statut',
