@@ -7,6 +7,7 @@ import MicroGuide from '../components/apporteurs/MicroGuide.vue'
 import JourneyTabs from '../components/apporteurs/JourneyTabs.vue'
 import ApporteursFaq from '../components/apporteurs/ApporteursFaq.vue'
 import ContractReader from '../components/apporteurs/ContractReader.vue'
+import '../assets/css/apporteurs.css'
 
 const contractReaderRef = ref(null)
 const journeyTabsRef = ref(null)

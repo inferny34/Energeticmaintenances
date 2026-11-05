@@ -22,7 +22,7 @@
       <!-- Étapes / Offre -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
 
-        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 flex flex-col gap-4">
+        <div class="card-hover bg-slate-50 border border-slate-100 rounded-2xl p-6 flex flex-col gap-4">
           <div class="w-12 h-12 rounded-xl bg-ems-green/10 flex items-center justify-center flex-shrink-0 text-ems-green-dark" aria-hidden="true">
             <!-- Pictogramme Conseil & Choix -->
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -35,7 +35,7 @@
           </p>
         </div>
 
-        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 flex flex-col gap-4">
+        <div class="card-hover bg-slate-50 border border-slate-100 rounded-2xl p-6 flex flex-col gap-4">
           <div class="w-12 h-12 rounded-xl bg-ems-green/10 flex items-center justify-center flex-shrink-0 text-ems-green-dark" aria-hidden="true">
             <!-- Pictogramme Audit électrique -->
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -48,7 +48,7 @@
           </p>
         </div>
 
-        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 flex flex-col gap-4">
+        <div class="card-hover bg-slate-50 border border-slate-100 rounded-2xl p-6 flex flex-col gap-4">
           <div class="w-12 h-12 rounded-xl bg-ems-green/10 flex items-center justify-center flex-shrink-0 text-ems-green-dark" aria-hidden="true">
             <!-- Pictogramme Pose certifiée -->
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -61,7 +61,7 @@
           </p>
         </div>
 
-        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 flex flex-col gap-4">
+        <div class="card-hover bg-slate-50 border border-slate-100 rounded-2xl p-6 flex flex-col gap-4">
           <div class="w-12 h-12 rounded-xl bg-ems-green/10 flex items-center justify-center flex-shrink-0 text-ems-green-dark" aria-hidden="true">
             <!-- Pictogramme Mise en service -->
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -92,7 +92,7 @@
               </svg>
             </summary>
             <div class="px-6 pb-5 font-body text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
-              Le tarif varie selon la configuration de votre installation électrique, la distance entre le tableau et l'emplacement de la borne, et le modèle choisi (7 kW à 22 kW). Comptez généralement entre <strong>800 € et 1 800 € TTC</strong> (fourniture et pose). Demandez un devis gratuit pour obtenir une estimation personnalisée.
+              Le tarif varie selon la configuration de votre installation électrique, la distance entre le tableau et l'emplacement de la borne, et le modèle choisi (7 kW à 22 kW). Comptez généralement entre <strong>800 € et 1 800 € TTC</strong> (fourniture et pose). Demandez un devis pour obtenir une estimation personnalisée.
             </div>
           </details>
 
@@ -155,7 +155,7 @@
         <div class="text-center mt-10 flex flex-col items-center gap-4">
           <a href="#contact"
              class="inline-flex items-center justify-center bg-ems-green text-ems-dark font-body font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full hover:bg-ems-green-alt transition-colors shadow-lg shadow-ems-green/20">
-            Obtenir mon devis gratuit &nbsp;→
+            Obtenir mon devis &nbsp;→
           </a>
 
           <!-- CTA discret vers le programme de recommandation (Point 3 de l'arbitrage) -->

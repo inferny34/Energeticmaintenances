@@ -16,12 +16,38 @@ const ContactSection       = defineAsyncComponent(() => import('../components/Co
   <main>
     <HeroSection />
     <BornesSection />
+    <ParrainageSection />
     <DepannageSection />
     <ExpertiseProsSection />
     <AboutSection />
     <EngagementsSection />
     <ZoneSection />
-    <ParrainageSection />
     <ContactSection />
   </main>
 </template>
+
+<style scoped>
+/* Les cartes gardent leurs couleurs propres ; les en-têtes suivent le fond. */
+:deep(:is(#pros, #engagements, #contact) > div > .text-center > h2) {
+  color: #fff;
+}
+:deep(:is(#pros, #engagements, #contact) > div > .text-center > p) {
+  color: #aab6c6;
+}
+:deep(:is(#pros, #engagements, #contact) > div > .text-center .text-ems-green-dark) {
+  color: #5dbe3a;
+}
+:deep(#contact > div > .text-center strong) {
+  color: #fff;
+}
+:deep(#pros > div > .text-center > span) {
+  background: rgb(93 190 58 / .1);
+  border-color: rgb(93 190 58 / .2);
+}
+:deep(#pros > div > .text-center > span > span) {
+  color: #5dbe3a;
+}
+:deep(#engagements > div > .text-center:last-child .text-slate-500) {
+  color: #aab6c6;
+}
+</style>

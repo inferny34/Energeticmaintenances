@@ -13,7 +13,7 @@
         <div
           v-for="step in steps"
           :key="step.index"
-          class="card"
+          class="card-hover card"
         >
           <div class="flex items-center gap-3 mb-4">
             <span class="font-display font-extrabold text-2xl text-ems-green/30" aria-hidden="true">

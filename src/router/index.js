@@ -8,7 +8,7 @@ const routes = [
     component: HomeView,
     meta: {
       title: 'Borne de recharge à domicile en Occitanie | Hérault, Gard… — EMS',
-      description: 'Installation de bornes de recharge pour véhicules électriques à domicile en Occitanie et départements limitrophes : Hérault, Gard, Bouches-du-Rhône… Maintenance HTA & dépannage. Devis gratuit.',
+      description: 'Installation de bornes de recharge pour véhicules électriques à domicile en Occitanie et départements limitrophes : Hérault, Gard, Bouches-du-Rhône… Maintenance HTA & dépannage. Devis sur mesure.',
       robots: 'index, follow',
     },
   },

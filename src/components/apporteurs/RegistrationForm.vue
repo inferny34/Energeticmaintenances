@@ -2,7 +2,7 @@
   <!-- FORMULAIRE INSCRIPTION (Devenir apporteur) -->
   <div>
     <!-- Encart de préparation -->
-    <aside class="mb-6 rounded-xl border border-ems-border bg-ems-dark p-6 space-y-4">
+    <aside class="card-hover mb-6 rounded-xl border border-ems-border bg-ems-dark p-6 space-y-4">
       <span class="section-label">Avant de commencer</span>
       <h3 class="font-display font-bold text-white uppercase text-lg">
         Vos quatre pièces à portée de main.
@@ -52,7 +52,7 @@
     <form
       :id="formId"
       enctype="multipart/form-data"
-      class="card space-y-6"
+      class="card-hover card space-y-6"
       novalidate
       @change="onFormChange"
       @input="onFormInput"
@@ -549,7 +549,7 @@
       </p>
 
       <!-- Vérifications pré-envoi -->
-      <div class="rounded-xl border border-ems-border bg-ems-dark/50 p-5 space-y-3">
+      <div class="card-hover rounded-xl border border-ems-border bg-ems-dark/50 p-5 space-y-3">
         <ul class="space-y-1">
           <li v-for="check in verificationList" :key="check" class="flex items-start gap-2 font-body text-xs text-ems-muted">
             <span aria-hidden="true" class="text-ems-green flex-shrink-0">✓</span>

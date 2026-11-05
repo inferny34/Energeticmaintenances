@@ -69,9 +69,9 @@ const links = [
         </a>
 
         <a :href="getHref('#contact')"
-           aria-label="Demander un devis gratuit"
+           aria-label="Demander un devis"
            class="hidden md:inline-flex bg-ems-green text-ems-dark font-body font-bold text-xs px-5 py-2 rounded-full hover:bg-ems-green-alt transition-colors duration-200">
-          Devis gratuit
+          Demander un devis
         </a>
 
         <!-- Burger -->
@@ -117,7 +117,7 @@ const links = [
         <li>
           <a :href="getHref('#contact')" @click="closeMenu"
              class="btn-primary inline-block text-sm text-center w-full mt-2 rounded-full">
-            Devis gratuit
+            Demander un devis
           </a>
         </li>
       </ul>

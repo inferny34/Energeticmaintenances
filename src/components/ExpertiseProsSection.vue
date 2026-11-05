@@ -24,7 +24,7 @@ const certifs = [
 </script>
 
 <template>
-  <section id="pros" class="py-24 bg-white text-slate-900" aria-labelledby="pros-title">
+  <section id="pros" class="py-24 bg-[#0f1a2e] text-slate-900" aria-labelledby="pros-title">
     <div class="max-w-6xl mx-auto px-6">
 
       <!-- En-tête unique et direct -->
@@ -44,7 +44,7 @@ const certifs = [
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
 
         <!-- Haute Tension HTA -->
-        <article class="bg-[#0f1a2e] rounded-2xl p-8 flex flex-col gap-6 border border-[#1e2f4a]">
+        <article class="card-hover bg-[#0f1a2e] rounded-2xl p-8 flex flex-col gap-6 border border-[#1e2f4a]">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 rounded-xl bg-[#1b2a4a] flex items-center justify-center flex-shrink-0">
               <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -74,7 +74,7 @@ const certifs = [
         </article>
 
         <!-- IRVE Professionnel -->
-        <article class="bg-[#0f1a2e] rounded-2xl p-8 flex flex-col gap-6 border border-[#1e2f4a]">
+        <article class="card-hover bg-[#0f1a2e] rounded-2xl p-8 flex flex-col gap-6 border border-[#1e2f4a]">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 rounded-xl bg-ems-green flex items-center justify-center flex-shrink-0">
               <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -106,12 +106,12 @@ const certifs = [
       </div>
 
       <!-- Bandeau certifications & agréments -->
-      <div class="bg-slate-50 border border-slate-100 rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="card-hover bg-[#162035] border border-[#1e2f4a] rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div class="flex flex-col gap-1">
           <span class="font-body text-[10px] text-slate-400 uppercase tracking-widest font-bold">Certifications & Habilitations</span>
           <div class="flex flex-wrap gap-2 mt-2">
             <span v-for="c in certifs" :key="c"
-                  class="flex items-center gap-1.5 bg-white border border-slate-200 rounded-lg px-3 py-1.5 font-body font-bold text-xs text-slate-800">
+                  class="flex items-center gap-1.5 bg-[#0f1a2e] border border-[#1e2f4a] rounded-lg px-3 py-1.5 font-body font-bold text-xs text-slate-200">
               <svg class="w-3.5 h-3.5 text-ems-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
               </svg>
@@ -119,7 +119,7 @@ const certifs = [
             </span>
           </div>
         </div>
-        <div class="bg-white rounded-xl p-3 border border-slate-200 flex items-center justify-center flex-shrink-0">
+        <div class="bg-[#0f1a2e] rounded-xl p-3 border border-[#1e2f4a] flex items-center justify-center flex-shrink-0">
           <img src="/logo-qualifelec.webp" alt="Logo certification Qualifelec" class="w-14 h-auto object-contain" width="250" height="300" loading="lazy" />
         </div>
       </div>

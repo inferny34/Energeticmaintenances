@@ -2,7 +2,7 @@
   <!-- FORMULAIRE RECOMMANDATION (Recommander un client) -->
   <div>
     <!-- Encart de préparation -->
-    <aside class="mb-6 rounded-xl border border-ems-border bg-ems-dark p-6 space-y-3">
+    <aside class="card-hover mb-6 rounded-xl border border-ems-border bg-ems-dark p-6 space-y-3">
       <span class="section-label">Vous avez déjà signé avec EMS</span>
       <h3 class="font-display font-bold text-white uppercase text-lg">Un client à présenter&nbsp;?</h3>
       <p class="font-body text-sm text-ems-muted leading-relaxed">
@@ -27,7 +27,7 @@
     <form
       :id="formId"
       enctype="multipart/form-data"
-      class="card space-y-6"
+      class="card-hover card space-y-6"
       novalidate
       @input="onFormInput"
       @submit.prevent="onSubmit"
@@ -256,7 +256,7 @@
         <aside
           id="engagement-loyaute"
           aria-labelledby="loyalty-title"
-          class="rounded-xl border border-ems-border bg-ems-dark p-5 space-y-3"
+          class="card-hover rounded-xl border border-ems-border bg-ems-dark p-5 space-y-3"
         >
           <span class="section-label">À lire avant chaque recommandation</span>
           <h4 id="loyalty-title" class="font-display font-bold text-white uppercase text-base" tabindex="-1">
@@ -428,7 +428,7 @@
       </p>
 
       <!-- Vérifications pré-envoi -->
-      <div class="rounded-xl border border-ems-border bg-ems-dark/50 p-5 space-y-3">
+      <div class="card-hover rounded-xl border border-ems-border bg-ems-dark/50 p-5 space-y-3">
         <ul class="space-y-1">
           <li v-for="check in verificationList" :key="check" class="flex items-start gap-2 font-body text-xs text-ems-muted">
             <span aria-hidden="true" class="text-ems-green flex-shrink-0">✓</span>{{ check }}

@@ -95,7 +95,7 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <section id="contact" class="py-24 bg-[#f8fafc] text-slate-950" aria-labelledby="contact-title">
+  <section id="contact" class="py-24 bg-[#0f1a2e] text-slate-950" aria-labelledby="contact-title">
     <div class="max-w-6xl mx-auto px-6">
 
       <!-- En-tête -->
@@ -104,7 +104,7 @@ async function handleSubmit() {
           <span class="font-display font-bold text-xs uppercase tracking-wider text-ems-green-dark">Contact & Devis</span>
         </span>
         <h2 id="contact-title" class="font-display font-extrabold text-slate-900 text-center uppercase tracking-tight mb-4 leading-none text-2xl sm:text-4xl">
-          Demandez votre <span class="text-ems-green-dark">devis gratuit</span>
+          Demandez votre <span class="text-ems-green-dark">devis</span>
         </h2>
         <p class="font-body text-slate-600 text-base max-w-2xl mx-auto leading-relaxed">
           Réponse à votre demande en <strong class="text-slate-900">48h ouvrées</strong>. Pour une urgence, appelez directement le <a href="tel:+33743708495" class="text-ems-green-dark font-bold hover:underline">07 43 70 84 95</a>.
@@ -118,7 +118,7 @@ async function handleSubmit() {
 
           <!-- Message de succès -->
           <div v-if="submitted"
-               class="bg-white border border-ems-green/30 rounded-2xl p-10 text-center shadow-lg"
+               class="card-hover bg-white border border-ems-green/30 rounded-2xl p-10 text-center shadow-lg"
                role="alert" aria-live="polite">
             <svg class="mx-auto mb-4 text-ems-green" width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="12" cy="12" r="10" stroke-width="2"/>
@@ -130,7 +130,7 @@ async function handleSubmit() {
 
           <!-- Formulaire -->
           <form v-else
-                class="bg-white border border-slate-200/60 rounded-2xl p-8 flex flex-col gap-6 shadow-md"
+                class="card-hover bg-white border border-slate-200/60 rounded-2xl p-8 flex flex-col gap-6 shadow-md"
                 @submit.prevent="handleSubmit"
                 aria-label="Formulaire de demande de devis">
 
@@ -297,7 +297,7 @@ async function handleSubmit() {
           <!-- Grille d'infos (4 cartes) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-            <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm flex items-start gap-3">
+            <div class="card-hover bg-white border border-slate-100 rounded-xl p-5 shadow-sm flex items-start gap-3">
               <div class="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center flex-shrink-0 text-[#1b2a4a]">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -309,7 +309,7 @@ async function handleSubmit() {
               </div>
             </div>
 
-            <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm flex items-start gap-3">
+            <div class="card-hover bg-white border border-slate-100 rounded-xl p-5 shadow-sm flex items-start gap-3">
               <div class="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center flex-shrink-0 text-[#1b2a4a]">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -321,7 +321,7 @@ async function handleSubmit() {
               </div>
             </div>
 
-            <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm flex items-start gap-3">
+            <div class="card-hover bg-white border border-slate-100 rounded-xl p-5 shadow-sm flex items-start gap-3">
               <div class="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center flex-shrink-0 text-[#1b2a4a]">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -334,7 +334,7 @@ async function handleSubmit() {
               </div>
             </div>
 
-            <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm flex items-start gap-3">
+            <div class="card-hover bg-white border border-slate-100 rounded-xl p-5 shadow-sm flex items-start gap-3">
               <div class="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center flex-shrink-0 text-[#1b2a4a]">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -349,7 +349,7 @@ async function handleSubmit() {
           </div>
 
           <!-- Encadré Urgence -->
-          <div class="bg-[#1b2a4a] text-white border border-ems-green/35 rounded-2xl p-6 shadow-lg flex flex-col gap-5 text-left">
+          <div class="card-hover bg-[#1b2a4a] text-white border border-ems-green/35 rounded-2xl p-6 shadow-lg flex flex-col gap-5 text-left">
             <div class="flex flex-col gap-2">
               <h3 class="font-display font-extrabold text-lg uppercase tracking-wide text-white">Besoin d'un dépannage rapide ?</h3>
               <p class="font-body text-xs text-[#8a96a8] leading-relaxed">

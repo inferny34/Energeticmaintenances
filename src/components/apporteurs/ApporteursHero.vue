@@ -2,7 +2,7 @@
   <!-- HERO -->
   <header
     id="programme"
-    class="relative overflow-hidden bg-ems-dark py-20 md:py-28"
+    class="apporteurs-hero relative overflow-hidden bg-ems-dark py-20 md:py-28"
     aria-labelledby="apporteurs-title"
   >
     <!-- Fond décoratif -->
@@ -57,7 +57,7 @@
         <!-- Encart rémunération -->
         <aside
           aria-label="Votre rémunération"
-          class="rounded-2xl border border-ems-green/20 bg-ems-surface p-8 flex flex-col gap-4"
+          class="card-hover apporteurs-reward rounded-2xl border border-ems-green/20 bg-ems-surface p-8 flex flex-col gap-4"
         >
           <div class="flex items-center justify-between">
             <span class="font-body text-xs uppercase tracking-widest text-ems-green">
@@ -116,7 +116,8 @@ defineEmits(['open-contract'])
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 function scrollTo(id) {
+  document.getElementById(`choice-${id}`)?.click()
   const el = document.getElementById(id)
-  if (el) el.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' })
+  requestAnimationFrame(() => el?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' }))
 }
 </script>

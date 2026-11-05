@@ -17,7 +17,7 @@
         <article
           v-for="step in steps"
           :key="step.num"
-          class="card space-y-4"
+          class="card-hover card space-y-4"
         >
           <span
             class="inline-block font-display font-extrabold text-3xl text-ems-green/20"
@@ -37,7 +37,7 @@
       </div>
 
       <!-- Encart "0 € de cotisations" -->
-      <div class="flex items-start gap-4 rounded-xl border border-ems-green/20 bg-ems-surface/50 p-6 mb-6">
+      <div class="card-hover flex items-start gap-4 rounded-xl border border-ems-green/20 bg-ems-surface/50 p-6 mb-6">
         <span aria-hidden="true" class="text-ems-green text-xl flex-shrink-0 mt-0.5">✓</span>
         <div>
           <h3 class="font-display font-bold text-white uppercase text-base mb-2">
@@ -60,7 +60,7 @@
       </p>
 
       <!-- Détails liens officiels -->
-      <details class="rounded-xl border border-ems-border bg-ems-dark p-5 mb-8 group">
+      <details class="card-hover rounded-xl border border-ems-border bg-ems-dark p-5 mb-8 group">
         <summary class="font-body text-sm font-medium text-ems-green cursor-pointer list-none flex items-center gap-2">
           <span>Les liens officiels pour vous guider</span>
           <span aria-hidden="true" class="transition-transform group-open:rotate-90">›</span>
@@ -98,8 +98,9 @@
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 function scrollToDevenir() {
+  document.getElementById('choice-devenir')?.click()
   const el = document.getElementById('devenir')
-  if (el) el.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' })
+  requestAnimationFrame(() => el?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' }))
 }
 
 const steps = [

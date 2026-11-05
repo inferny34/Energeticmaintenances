@@ -53,7 +53,6 @@
       <!-- Panneaux -->
       <div
         :id="ids.panelDevenir"
-        id="devenir"
         role="tabpanel"
         aria-labelledby="choice-devenir"
         :hidden="activeTab !== 'devenir'"
@@ -63,7 +62,6 @@
 
       <div
         :id="ids.panelRecommander"
-        id="recommander"
         role="tabpanel"
         aria-labelledby="choice-recommander"
         :hidden="activeTab !== 'recommander'"
@@ -75,7 +73,7 @@
 </template>
 
 <script setup>
-import { ref, useId, onMounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import RegistrationForm from './RegistrationForm.vue'
 import ReferralForm from './ReferralForm.vue'
 
@@ -90,14 +88,12 @@ const props = defineProps({
 
 const emit = defineEmits(['open-contract'])
 
-const _id = useId()
 const ids = {
-  panelDevenir: `${_id}-panel-devenir`,
-  panelRecommander: `${_id}-panel-recommander`,
+  panelDevenir: 'devenir',
+  panelRecommander: 'recommander',
 }
 
 const activeTab = ref(props.initialTab)
-const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 function selectTab(name, focusHeading = false) {
   activeTab.value = name
@@ -137,4 +133,5 @@ onMounted(() => {
   handleHash()
   window.addEventListener('hashchange', handleHash)
 })
+onUnmounted(() => window.removeEventListener('hashchange', handleHash))
 </script>

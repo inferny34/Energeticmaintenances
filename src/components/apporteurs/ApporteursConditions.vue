@@ -20,7 +20,7 @@
             <article
               v-for="cond in conditions"
               :key="cond.tag"
-              class="rounded-xl border border-ems-border bg-ems-dark p-6 flex flex-col gap-2"
+              class="card-hover rounded-xl border border-ems-border bg-ems-dark p-6 flex flex-col gap-2"
             >
               <span class="font-body text-xs uppercase tracking-widest text-ems-green">
                 {{ cond.tag }}
@@ -33,7 +33,7 @@
           <!-- Callout lecture contrat -->
           <aside
             id="lecture-contrat"
-            class="rounded-xl border border-ems-green/20 bg-ems-dark p-6 space-y-3"
+            class="card-hover rounded-xl border border-ems-green/20 bg-ems-dark p-6 space-y-3"
           >
             <span class="section-label">À lire avant de vous engager</span>
             <h3 class="font-display font-bold text-white text-lg uppercase">
@@ -58,7 +58,7 @@
           </aside>
 
           <!-- Note professionnels -->
-          <aside class="rounded-xl border border-ems-border bg-ems-dark p-6 space-y-3">
+          <aside class="card-hover rounded-xl border border-ems-border bg-ems-dark p-6 space-y-3">
             <h3 class="font-display font-bold text-white text-base uppercase">
               Vous exercez en entreprise ou en micro-entreprise&nbsp;?
             </h3>
@@ -82,7 +82,7 @@
 
         <!-- Colonne droite : zone -->
         <div>
-          <div class="sticky top-24 rounded-xl border border-ems-border bg-ems-dark p-6 space-y-5">
+          <div class="card-hover sticky top-24 rounded-xl border border-ems-border bg-ems-dark p-6 space-y-5">
             <h3 class="font-display font-bold text-white uppercase text-base">
               Notre zone d'intervention
             </h3>
@@ -119,7 +119,7 @@ const conditions = [
   {
     tag: '01 / La commission',
     title: '<strong>100&nbsp;€</strong> puis <strong>130&nbsp;€</strong>',
-    body: '100&nbsp;€ pour les 10 premières bornes éligibles, puis 130&nbsp;€ à partir de la 11ᵉ. TVA comprise si applicable.',
+    body: '100\u00a0€ pour les 10 premières bornes éligibles, puis 130\u00a0€ à partir de la 11ᵉ. TVA comprise si applicable.',
   },
   {
     tag: '02 / Votre statut',
