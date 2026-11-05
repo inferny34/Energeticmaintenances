@@ -1,0 +1,173 @@
+/* Page partenaire : identité EMS, surfaces claires et lecture des dossiers facilitée.
+   Tous les styles restent limités à cette page ; le lecteur de contrat garde son thème. */
+.apporteurs-page {
+  --partner-ink: #142b43;
+  --partner-muted: #536575;
+  --partner-line: #dce5e8;
+  --partner-green: #347b24;
+  background: #fff;
+  color: var(--partner-ink);
+}
+
+.apporteurs-page > section {
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+  background: #fff;
+  border-bottom: 1px solid var(--partner-line);
+}
+.apporteurs-page > #conditions,
+.apporteurs-page > #formulaires { background: #f1f5f5; }
+.apporteurs-page :is(section, [role="tabpanel"], #engagement-loyaute) { scroll-margin-top: 6rem; }
+.apporteurs-page > section .font-display {
+  font-family: 'DM Sans', sans-serif;
+  text-transform: none;
+  letter-spacing: -.025em;
+}
+.apporteurs-page > section .section-title {
+  color: var(--partner-ink);
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  line-height: 1.2;
+  font-weight: 700;
+  max-width: 46rem;
+}
+.apporteurs-page > section .section-label {
+  color: var(--partner-green);
+  font-size: .75rem;
+  letter-spacing: .14em;
+  font-weight: 700;
+}
+.apporteurs-page > section .text-white,
+.apporteurs-page > section .text-ems-text { color: var(--partner-ink); }
+.apporteurs-page > section [class*="text-ems-muted"] { color: var(--partner-muted); }
+.apporteurs-page > section .text-ems-green { color: var(--partner-green); }
+.apporteurs-page > section [class*="border-ems-border"] { border-color: var(--partner-line); }
+.apporteurs-page > section :is(.bg-ems-dark, .card) { background: #fff; }
+.apporteurs-page > section .card {
+  border: 1px solid var(--partner-line);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px #142b4305;
+}
+.apporteurs-page > section .card:hover { transform: none; }
+.apporteurs-page > section :is(h3, h4) { line-height: 1.4; }
+.apporteurs-page > section .text-xs { font-size: .8125rem; line-height: 1.65; }
+.apporteurs-page > section :is(.btn-primary, .btn-outline) {
+  padding: .9rem 1.25rem;
+  border-radius: 7px;
+  font-weight: 700;
+}
+.apporteurs-page > section .btn-primary { color: #10243a; background: #78c947; }
+.apporteurs-page > section .btn-outline { color: var(--partner-green); }
+.apporteurs-page :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #38852b;
+  outline-offset: 4px;
+}
+
+/* Une introduction lumineuse, un montant réellement mis en valeur. */
+.apporteurs-page .apporteurs-hero {
+  background: linear-gradient(115deg, #f1f6f5 0%, #fafcf8 65%, #eaf2e7 100%);
+  border-bottom: 1px solid var(--partner-line);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+.apporteurs-hero > [aria-hidden="true"] { display: none; }
+.apporteurs-hero h1 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2.25rem, 4.2vw, 3.6rem);
+  text-transform: none;
+  letter-spacing: -.055em;
+  line-height: 1.12;
+  color: var(--partner-ink);
+}
+.apporteurs-hero h1 span { color: var(--partner-green); }
+.apporteurs-hero .grid > div > p { color: var(--partner-muted); line-height: 1.85; }
+.apporteurs-hero .grid > div > div:first-child {
+  background: transparent;
+  border: 0;
+  border-left: 3px solid #78c947;
+  border-radius: 0;
+  padding-left: .8rem;
+}
+.apporteurs-hero .grid > div > div:first-child span { color: var(--partner-green); font-family: 'DM Sans', sans-serif; }
+.apporteurs-hero :is(.btn-primary, .btn-outline) { border-radius: 7px; padding: .95rem 1.2rem; }
+.apporteurs-hero .btn-primary { background: #78c947; color: #10243a; }
+.apporteurs-hero .btn-outline { background: #fff; color: var(--partner-ink); border-color: #bdcdd2; }
+.apporteurs-page .apporteurs-reward {
+  background: #142b43;
+  border: 0;
+  border-bottom: 5px solid #78c947;
+  border-radius: 16px;
+  padding: clamp(1.6rem, 3vw, 2.5rem);
+  box-shadow: 0 24px 50px #142b431a;
+}
+.apporteurs-reward .font-display { font-family: 'DM Sans', sans-serif; }
+.apporteurs-reward strong[style] { font-size: clamp(4.5rem, 8vw, 6.5rem) !important; letter-spacing: -.065em; line-height: 1.1; }
+.apporteurs-reward [class*="text-ems-muted"] { color: #c3d1db; }
+.apporteurs-reward .text-ems-green { color: #95d56f; }
+.apporteurs-reward > div:nth-last-child(2) { border: 0; border-top: 1px solid #ffffff26; border-radius: 0; background: transparent; padding: 1.25rem 0 0; }
+
+.apporteurs-page #fonctionnement .card { border-top: 3px solid #142b43; padding: 1.5rem; }
+.apporteurs-page #fonctionnement .card h3 { font-size: 1.05rem; }
+.apporteurs-page #fonctionnement [class*="text-ems-green/"] { color: #347b24; font-size: 1rem; }
+.apporteurs-page #conditions article { border-radius: 12px; padding: 1.5rem; }
+.apporteurs-page #conditions #lecture-contrat { border-left: 4px solid #78c947; }
+.apporteurs-page #conditions .sticky { background: #142b43; border: 0; box-shadow: 0 14px 35px #142b4310; }
+.apporteurs-page #conditions .sticky h3,
+.apporteurs-page #conditions .sticky .text-ems-text { color: #fff; }
+.apporteurs-page #conditions .sticky [class*="text-ems-muted"] { color: #c3d1db; }
+.apporteurs-page #conditions .sticky .chip { background: #ffffff0d; border-color: #ffffff26; border-radius: 6px; }
+.apporteurs-page #conditions .sticky .text-ems-green { color: #95d56f; }
+.apporteurs-page #guide-micro .card { background: #f7f9f7; box-shadow: none; }
+.apporteurs-page #guide-micro [class*="text-ems-green/"] { color: #347b24; }
+
+/* Le dossier se lit en deux colonnes : préparation puis formulaire. */
+.apporteurs-page #formulaires [role="tablist"] {
+  padding: 6px;
+  background: #e3ebed;
+  border-radius: 12px;
+  gap: 6px;
+}
+.apporteurs-page #formulaires [role="tab"] { background: transparent; border-color: transparent; border-radius: 8px; }
+.apporteurs-page #formulaires [role="tab"][aria-selected="true"] {
+  background: #fff;
+  color: var(--partner-ink);
+  box-shadow: 0 3px 12px #142b430c;
+  border-color: #d1ded5;
+}
+.apporteurs-page #formulaires [role="tab"] span { opacity: 1; color: var(--partner-muted); }
+.apporteurs-page #formulaires [role="tabpanel"] > div > aside { border-top: 3px solid #78c947; }
+.apporteurs-page #formulaires form { padding: clamp(1.25rem, 3vw, 2.25rem); }
+.apporteurs-page #formulaires form > fieldset + fieldset { border-top: 1px solid var(--partner-line); padding-top: 1.75rem; }
+.apporteurs-page #formulaires label { font-size: .875rem; color: var(--partner-ink); }
+.apporteurs-page #formulaires .form-input {
+  background: #fbfcfc;
+  color: var(--partner-ink);
+  border-color: #bdcdd2;
+  border-radius: 7px;
+}
+.apporteurs-page #formulaires .form-input:focus { background: #fff; border-color: #38852b; }
+.apporteurs-page #formulaires [class*="bg-ems-dark/"] { background: #f4f7f7; }
+.apporteurs-page #formulaires [class*="bg-ems-surface/"] { background: #edf2f3; }
+.apporteurs-page #formulaires input[type="file"] { color: var(--partner-muted); }
+.apporteurs-page #formulaires input[type="file"]::file-selector-button { color: #347b24; background: #eaf4e4; }
+.apporteurs-page #formulaires [class*="text-red-"] { color: #b42332; }
+.apporteurs-page #formulaires [class*="text-amber-"] { color: #835100; }
+.apporteurs-page #formulaires [class*="text-green-"] { color: #287322; }
+.apporteurs-page > section details { background: #fff; }
+
+@media (min-width: 1024px) {
+  .apporteurs-page #formulaires [role="tabpanel"] > div {
+    display: grid;
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.8fr);
+    gap: 2rem;
+    align-items: start;
+  }
+  .apporteurs-page #formulaires [role="tabpanel"] > div > aside { position: sticky; top: 6rem; }
+  .apporteurs-page #formulaires [role="tabpanel"] > div > p { grid-column: 2; }
+}
+@media (max-width: 639px) {
+  .apporteurs-hero h1 { font-size: clamp(2rem, 8.4vw, 3rem); }
+  .apporteurs-hero .btn-primary,
+  .apporteurs-hero .btn-outline { width: 100%; justify-content: center; }
+  .apporteurs-page #conditions .sticky { position: static; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .apporteurs-page *, .apporteurs-page *::before, .apporteurs-page *::after { transition: none !important; animation: none !important; }
+}

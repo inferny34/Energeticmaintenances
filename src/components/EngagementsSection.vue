@@ -36,7 +36,7 @@ const engagements = [
 </script>
 
 <template>
-  <section id="engagements" class="py-24 bg-white relative overflow-hidden" aria-labelledby="engagements-title">
+  <section id="engagements" class="py-24 bg-[#0f1a2e] relative overflow-hidden" aria-labelledby="engagements-title">
     
     <!-- Motif fond grille de points subtile en arrière-plan -->
     <div class="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -65,7 +65,7 @@ const engagements = [
       <!-- Grille des cartes -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mb-16">
         <article v-for="item in engagements" :key="item.id"
-                 class="relative bg-white border border-slate-200/60 hover:border-ems-green/45 rounded-2xl p-8 transition-all duration-300 shadow-md hover:shadow-lg group overflow-hidden">
+                 class="card-hover relative bg-[#162035] border border-[#1e2f4a] hover:border-ems-green/45 rounded-2xl p-8 transition-all duration-300 shadow-md hover:shadow-lg group overflow-hidden">
           
           <!-- Badge flottant en haut à droite -->
           <span class="absolute top-6 right-6 text-[10px] font-body font-bold bg-[#5dbe3a] text-[#0f1a2e] px-3 py-1 rounded-full uppercase tracking-wider">
@@ -73,26 +73,26 @@ const engagements = [
           </span>
 
           <!-- Conteneur d'icône -->
-          <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-6 border border-slate-100" 
+          <div class="w-12 h-12 bg-[#0f1a2e] rounded-xl flex items-center justify-center mb-6 border border-[#1e2f4a]"
                v-html="item.svg"
                aria-hidden="true">
           </div>
 
           <!-- Titre Engagement -->
-          <h3 class="font-display font-bold text-lg text-slate-900 uppercase mb-3">
+          <h3 class="font-display font-bold text-lg text-white uppercase mb-3">
             {{ item.title }}
           </h3>
 
           <!-- Description -->
-          <p class="font-body text-sm text-slate-600 leading-relaxed mb-6" v-html="item.text"></p>
+          <p class="font-body text-sm text-slate-300 leading-relaxed mb-6" v-html="item.text"></p>
 
           <!-- Pied de carte -->
-          <div class="flex items-center gap-2 border-t border-slate-100 pt-4" aria-hidden="true">
+          <div class="flex items-center gap-2 border-t border-[#1e2f4a] pt-4" aria-hidden="true">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="text-ems-green flex-shrink-0">
               <circle cx="8" cy="8" r="8" fill="rgba(93,190,58,0.15)"/>
               <path d="M5 8.5l2 2 4-4" stroke="#5DBE3A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span class="font-body text-[11px] text-slate-500 font-bold uppercase tracking-wider group-hover:text-ems-green transition-colors duration-200">
+            <span class="font-body text-[11px] text-slate-400 font-bold uppercase tracking-wider group-hover:text-ems-green transition-colors duration-200">
               {{ item.tag }}
             </span>
           </div>

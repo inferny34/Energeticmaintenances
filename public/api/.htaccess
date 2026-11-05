@@ -1,0 +1,17 @@
+# Sécurisation du dossier API
+Options -Indexes
+
+# Bloquer l'accès à tous les fichiers sauf les scripts PHP d'API autorisés
+<FilesMatch ".*">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "^(apporteurs|contact)\.php$">
+    Require all granted
+</FilesMatch>
+
+# En-têtes de sécurité
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "DENY"
+</IfModule>

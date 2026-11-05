@@ -1,3 +1,30 @@
+# ── SPA Rewrite Rules pour Vue Router (HTML5 History Mode) ────────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Ne jamais réécrire les scripts API ni les fichiers PHP réels
+    RewriteRule ^api/ - [L]
+    RewriteCond %{REQUEST_URI} \.php$
+    RewriteRule - [L]
+
+    # Laisser passer directement index.html et tous les fichiers / dossiers réels
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Réécrire toutes les autres URL SPA vers index.html
+    RewriteRule . /index.html [L]
+</IfModule>
+
+# ── Header X-Robots-Tag noindex pour le chemin /apporteurs ───────────────────
+<IfModule mod_headers.c>
+    SetEnvIf Request_URI "^/apporteurs" NOINDEX_PAGE=1
+    Header set X-Robots-Tag "noindex, nofollow" env=NOINDEX_PAGE
+</IfModule>
+
+# ── Règles d'expiration et cache navigateur ──────────────────────────────────
 <IfModule mod_expires.c>
     ExpiresActive On
     
@@ -22,6 +49,7 @@
     ExpiresByType application/font-woff2 "access plus 1 year"
 </IfModule>
 
+# ── Compression Gzip / Deflate ────────────────────────────────────────────────
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html

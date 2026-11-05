@@ -1,12 +1,18 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const scrolled  = ref(false)
 const menuOpen  = ref(false)
 
 function onScroll() { scrolled.value = window.scrollY > 50 }
 function toggleMenu() { menuOpen.value = !menuOpen.value }
 function closeMenu() { menuOpen.value = false }
+
+function getHref(hash) {
+  return route.path === '/' ? hash : '/' + hash
+}
 
 onMounted(()  => window.addEventListener('scroll', onScroll))
 onUnmounted(() => window.removeEventListener('scroll', onScroll))
@@ -33,7 +39,7 @@ const links = [
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
       <!-- LOGO -->
-      <a href="#hero" aria-label="Energetic Maintenances Services - Retour accueil"
+      <a :href="getHref('#hero')" aria-label="Energetic Maintenances Services - Retour accueil"
          class="flex items-center gap-3">
         <img src="/logo.webp" alt="Logo Energetic Maintenances Services" class="w-10 h-10 object-contain" fetchpriority="high" />
         <span class="hidden sm:block font-body text-ems-muted text-xs leading-tight">
@@ -44,7 +50,7 @@ const links = [
       <!-- LIENS DESKTOP -->
       <ul class="hidden md:flex items-center gap-8" role="list">
         <li v-for="link in links" :key="link.label">
-          <a :href="link.href"
+          <a :href="getHref(link.href)"
              :aria-label="'Aller à la section ' + link.label"
              class="font-body text-sm text-ems-muted hover:text-ems-text transition-colors duration-200">
             {{ link.label }}
@@ -62,10 +68,10 @@ const links = [
           Nous contacter
         </a>
 
-        <a href="#contact"
-           aria-label="Demander un devis gratuit"
+        <a :href="getHref('#contact')"
+           aria-label="Demander un devis"
            class="hidden md:inline-flex bg-ems-green text-ems-dark font-body font-bold text-xs px-5 py-2 rounded-full hover:bg-ems-green-alt transition-colors duration-200">
-          Devis gratuit
+          Demander un devis
         </a>
 
         <!-- Burger -->
@@ -94,7 +100,7 @@ const links = [
          class="md:hidden bg-ems-surface border-t border-ems-border px-6 py-4">
       <ul class="flex flex-col gap-4" role="list">
         <li v-for="link in links" :key="link.label">
-          <a :href="link.href" @click="closeMenu"
+          <a :href="getHref(link.href)" @click="closeMenu"
              :aria-label="'Aller à la section ' + link.label"
              class="block font-body text-ems-muted hover:text-ems-text transition-colors duration-200 py-1">
             {{ link.label }}
@@ -109,9 +115,9 @@ const links = [
           </a>
         </li>
         <li>
-          <a href="#contact" @click="closeMenu"
+          <a :href="getHref('#contact')" @click="closeMenu"
              class="btn-primary inline-block text-sm text-center w-full mt-2 rounded-full">
-            Devis gratuit
+            Demander un devis
           </a>
         </li>
       </ul>

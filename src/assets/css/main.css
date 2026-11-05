@@ -78,3 +78,23 @@
   transform-box: fill-box;
   transform-origin: center;
 }
+
+/* Contour partagé des cartes, sans changement de dimensions au survol. */
+.card-hover {
+  transition: border-color 200ms ease, outline-color 200ms ease, box-shadow 200ms ease;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+}
+@media (hover: hover) {
+  .card-hover.card-hover:hover {
+    border-color: #5dbe3a;
+    outline-color: #5dbe3a;
+  }
+}
+.card-hover.card-hover:focus-within {
+  border-color: #5dbe3a;
+  outline-color: #5dbe3a;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-hover { transition: none; }
+}
